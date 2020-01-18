@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、字符串字面量1、定义(1) 一对双引号””括起来的字符序列 (2)本质：是一个以字符’\0’结尾的特殊字符数组  2、延续字符串字面量(1)场合：字符串字面量长度过长无法放置在单独一行内，分别放在不同的行 (2)字符\法 12printf(&quot;hello c, \	hello world!&quot;);  (3)双引号””法 12printf(&quot;hello c, &quot;	&quot;hello world!&quot;);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串">
+<meta property="og:url" content="https://linsgsh.github.io/2019/07/07/字符串/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一、字符串字面量1、定义(1) 一对双引号””括起来的字符序列 (2)本质：是一个以字符’\0’结尾的特殊字符数组  2、延续字符串字面量(1)场合：字符串字面量长度过长无法放置在单独一行内，分别放在不同的行 (2)字符\法 12printf(&quot;hello c, \	hello world!&quot;);  (3)双引号””法 12printf(&quot;hello c, &quot;	&quot;hello world!&quot;);">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-17T13:16:58.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串">
+<meta name="twitter:description" content="一、字符串字面量1、定义(1) 一对双引号””括起来的字符序列 (2)本质：是一个以字符’\0’结尾的特殊字符数组  2、延续字符串字面量(1)场合：字符串字面量长度过长无法放置在单独一行内，分别放在不同的行 (2)字符\法 12printf(&quot;hello c, \	hello world!&quot;);  (3)双引号””法 12printf(&quot;hello c, &quot;	&quot;hello world!&quot;);">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://linsgsh.github.io/2019/07/07/字符串/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>字符串 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://linsgsh.github.io/2019/07/07/字符串/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">字符串
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-07 16:57:18" itemprop="dateCreated datePublished" datetime="2019-07-07T16:57:18+08:00">2019-07-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-17 21:16:58" itemprop="dateModified" datetime="2019-07-17T21:16:58+08:00">2019-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C语言/" itemprop="url" rel="index"><span itemprop="name">C语言</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、字符串字面量"><a href="#一、字符串字面量" class="headerlink" title="一、字符串字面量"></a>一、字符串字面量</h3><h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>(1) 一对双引号””括起来的字符序列</p>
+<p>(2)本质：是一个以字符’\0’结尾的<strong>特殊字符数组</strong> </p>
+<h4 id="2、延续字符串字面量"><a href="#2、延续字符串字面量" class="headerlink" title="2、延续字符串字面量"></a>2、延续字符串字面量</h4><p>(1)场合：字符串字面量长度过长无法放置在单独一行内，分别放在不同的行</p>
+<p>(2)字符\法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"hello c, \</span></span><br><span class="line"><span class="string">	hello world!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>(3)双引号””法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"hello c, "</span></span><br><span class="line">	<span class="string">"hello world!"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、存储字符串字面量"><a href="#3、存储字符串字面量" class="headerlink" title="3、存储字符串字面量"></a>3、存储字符串字面量</h4><p>(1)本质：是一个以字符’\0’结尾的<strong>特殊字符数组</strong> </p>
+<p>(2)编译器遇到长度为N的字符串字面量，会为其分配长度为N+1的内存空间</p>
+<p>(3)字符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//空格字符  ' '   值：32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//空字符   '\0'   值：0(8位上的值都是0)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//零字符    '0'   值：48</span></span><br></pre></td></tr></table></figure>
+
+<p>(4)字符数组：编译器看做是一个指针(指向数组第一个字符的指针)</p>
+<p>(5)字符串字面量操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以用一个指针指向字符串(字符数组)</span></span><br><span class="line"><span class="keyword">char</span> *p = <span class="string">"hello, world"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问字符串内容</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, p[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//把字符数组元素赋值给字符变量</span></span><br><span class="line"><span class="keyword">char</span> c = p[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改字符数组的元素是非法无效</span></span><br><span class="line">*p[<span class="number">4</span>] = <span class="string">'c'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改字符串字面量会导致未定义的行为</span></span><br><span class="line">*p= <span class="string">'A'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(6)理解</p>
+<p> C语言将长度为N的字符串字面量存储在一个长度为N+1的字符数组中，且字符数组是const修饰</p>
+<p>  一经声明、初始化后字符数组元素不能修改，所以可以访问字符串字面量的值，但是不能修改</p>
+<p> 存储字符串字面量既然是存储在字符数组中，则可以使用指针去访问字符串字面量</p>
+<h3 id="二、字符串变量"><a href="#二、字符串变量" class="headerlink" title="二、字符串变量"></a>二、字符串变量</h3><h4 id="1、声明字符串变量"><a href="#1、声明字符串变量" class="headerlink" title="1、声明字符串变量"></a>1、声明字符串变量</h4><p>(1)字符数组长度=字符串长度(不包括’\0’)+1(为’\0’留一个位置)</p>
+<p>(2)惯用法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STR_LEN 100;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> str[STR_LEN + <span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<p>(3)字符串长度：从第0个元素开始直至遇到第一个空字符’\0’(假设在第N个位置遇到，则数组长度为N)</p>
+<p>(4)字符串： 要以’\0’结尾，但是’\0’位置不一定是在数组末尾一个</p>
+<h4 id="2、初始化字符串变量"><a href="#2、初始化字符串变量" class="headerlink" title="2、初始化字符串变量"></a>2、初始化字符串变量</h4><p>(1)字符串字面量形式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c[<span class="number">8</span>] = <span class="string">"hello,C"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)字符数组形式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c[<span class="number">8</span>] = &#123;<span class="string">'h'</span>, <span class="string">'e'</span>,<span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>, <span class="string">','</span>, <span class="string">'C'</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>(3)初始化表达式过短</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c[<span class="number">20</span>] = &#123;<span class="string">'h'</span>, <span class="string">'e'</span>,<span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>, <span class="string">','</span>, <span class="string">'C'</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//前7个元素被填满,分别为hello,c，第7个位置开始到第19个位置的值用'\0'填满</span></span><br></pre></td></tr></table></figure>
+
+<p>(4)初始化表达式长度 &gt;= 数组长度</p>
+<p> 结果：<strong>编译器不会存储’\0’，导致字符数组无法作用字符串,只是当做普通数组</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串长度为7</span></span><br><span class="line"><span class="keyword">char</span> c[<span class="number">7</span>] = <span class="string">"hello,C"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(5)字符串变量声明、初始化</p>
+<p> 操作：省略字符数组长度，由编译器自动计算长度</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c[] = <span class="string">"hello,C"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(6)结论</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化表达式比数组长度短时，剩余字符元素的值用'\0'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化表达式长度 &gt;= 数组长度,编译器不会存储'\0'，导致字符数组无法作用字符串,只是当做普通数组</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3、字符数组和字符指针"><a href="#3、字符数组和字符指针" class="headerlink" title="3、字符数组和字符指针"></a>3、字符数组和字符指针</h4><p>(1)字符数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明为数组时，则可以修改字符数组的元素的值，字符串是变量</span></span><br><span class="line"><span class="keyword">char</span> c[] = <span class="string">"Linux"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)字符指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明为指针时，则字符串是一个字面量，不可以修改</span></span><br><span class="line"><span class="keyword">char</span> *c = <span class="string">"Linux"</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、字符串赋值"><a href="#4、字符串赋值" class="headerlink" title="4、字符串赋值"></a>4、字符串赋值</h4><p>(1)字符串(字符数组)赋值</p>
+<p>  <strong>数组名是右值,不能将字符串字面量通过赋值给数组</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NAME_LEN 20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个数组</span></span><br><span class="line"><span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//这是错误的</span></span><br><span class="line">name = <span class="string">"CSAPP"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)字符串元素赋值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NAME_LEN 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个数组</span></span><br><span class="line"><span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//这是错误的</span></span><br><span class="line">name[<span class="number">0</span>] = <span class="string">'C'</span>;</span><br><span class="line">name[<span class="number">1</span>] = <span class="string">'S'</span>;</span><br><span class="line">name[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line">name[<span class="number">3</span>] = <span class="string">'P'</span>;</span><br><span class="line">name[<span class="number">4</span>] = <span class="string">'P'</span>;</span><br><span class="line">name[<span class="number">5</span>] = <span class="string">'\0'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、字符串总结"><a href="#三、字符串总结" class="headerlink" title="三、字符串总结"></a>三、字符串总结</h3><h4 id="1、字符串字面量"><a href="#1、字符串字面量" class="headerlink" title="1、字符串字面量"></a>1、字符串字面量</h4><p>(1)本质上是一个字符数组</p>
+<p>(2)一个指针指向该字符数组的首元素的首地址(指针指向字符数组首元素)</p>
+<p>(3)存储字符字面量的字符数组可以看做是一个const修饰的数组，一经声明、初始化不能修改</p>
+<p>(4)存储位置</p>
+<h4 id="2、字符串变量"><a href="#2、字符串变量" class="headerlink" title="2、字符串变量"></a>2、字符串变量</h4><p>(1)本质上是一个字符数组</p>
+<p>(2)一个数组声明、初始化的值该字符串</p>
+<p>(3)字符数组如果没有用const修饰，则初始化后可以修改字符数组元素的值</p>
+<p>(4)存储位置：</p>
+<h4 id="3、字符串形式参数写法"><a href="#3、字符串形式参数写法" class="headerlink" title="3、字符串形式参数写法"></a>3、字符串形式参数写法</h4><p>(1)数组名写法</p>
+<p>(2指针变量写法</p>
+<p>(3)字符串字面量写法</p>
+<h4 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h4><p>(1)字符串左边是一个指针，则该字符串是字符串字面量，字符数组的值不能修改</p>
+<p>(2)字符串左边是一个没有const修饰字符数组，则字符数组的值可以修改</p>
+<p>(3)字符字面量和字符串变量相同：本质上都是用字符数组表示字符串</p>
+<p>(4)字符字面量和字符串变量不同：一个数组可以修改元素的值,一个数组不能修改元素的值</p>
+<p>(5)字符串本质是一个特殊的字符数组,数组名是右值,不能通过作为右值的字符串字面量赋值给数组名</p>
+<h3 id="四、字符串的读写"><a href="#四、字符串的读写" class="headerlink" title="四、字符串的读写"></a>四、字符串的读写</h3><h4 id="1、printf写"><a href="#1、printf写" class="headerlink" title="1、printf写"></a>1、printf写</h4><p>(1)原理</p>
+<p>   逐个写字符串中的字符，直至遇到空字符’\0’停止。</p>
+<p>   如果没有遇到’\0’，则越过字符串末尾继续写，直到在内存中某个地方遇到空字符</p>
+<p>(2)格式：%s</p>
+<p>(3)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[] = <span class="string">"CASPP APUE"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用%s格式输出</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s"</span>, str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、puts写入"><a href="#2、puts写入" class="headerlink" title="2、puts写入"></a>2、puts写入</h4><p>(1)参数：字符数组名/指针</p>
+<p>(2)特点：写完字符串，会额外添加一个换行符’\n’</p>
+<p>(3)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[] = <span class="string">"CASPP APUE"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">puts</span>(str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、scanf读取"><a href="#3、scanf读取" class="headerlink" title="3、scanf读取"></a>3、scanf读取</h4><p>(1)格式：%s</p>
+<p>(2)数组名前不需要加&amp;，编译器传入数组名会自动转换为一个指针</p>
+<p>(3)读取原理</p>
+<p>​    读取字符串时，会<strong>跳过空白字符</strong>，从<strong>第一个非空白字</strong>符读起，然后遇到空白字符时停止读取，在字符串末尾存储一个空字符。</p>
+<p>(4)特点：字符串永远不会包含空白字符，导致不会读取一整行输入</p>
+<p>(5)空白字符：换行符’\n’、制表符’\t’、空格字符’ ‘</p>
+<p>(6)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STR_LEN 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义字符数组</span></span><br><span class="line"><span class="keyword">char</span> str[STR_LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取字符串</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%s"</span>, str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、gets读取"><a href="#4、gets读取" class="headerlink" title="4、gets读取"></a>4、gets读取</h4><p>(1)参数：数组名/指针</p>
+<p>(2)特点</p>
+<p> 不会在读取跳过空白字符，会从第一个字符读起直至遇到换行符，但不会将换行符存储到字符数组，用空字符代替换行符存储到数组</p>
+<p>(3)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STR_LEN 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义字符数组</span></span><br><span class="line"><span class="keyword">char</span> str[STR_LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取字符串</span></span><br><span class="line">gets(str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、逐个字符读取字符串"><a href="#5、逐个字符读取字符串" class="headerlink" title="5、逐个字符读取字符串"></a>5、逐个字符读取字符串</h4><p>(1)原理：使用getchar()函数循环逐个读取字符,当读取到’\n’时读取结束，丢弃’\n’，并在末尾添加’\0’</p>
+<p>(2)要素：getchar()函数、while循环、读取结束临界条件、字符数组末尾’\0’添加</p>
+<p>(3)临界读取结束条件</p>
+<p>  读取的字符串长度(不包含空字符)大于规定的字符长度时跳出循环</p>
+<p>  读取到换行符’\n’(字符串长度 &lt;= 规定的字符长度)</p>
+<p>  当字符串长度 &lt; 规定的长度，提前读取到换行符时，剩余的元素没有显示初始化</p>
+<p>(4)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STR_LEN 10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> str[STR_LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ch, i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>((ch = getchar()) != <span class="string">'\n'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; STR_LEN) &#123;</span><br><span class="line">        str[i++] = ch;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">str[i] = <span class="string">'\0'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、字符串函数库"><a href="#五、字符串函数库" class="headerlink" title="五、字符串函数库"></a>五、字符串函数库</h3><h4 id="1、strcpy复制函数"><a href="#1、strcpy复制函数" class="headerlink" title="1、strcpy复制函数"></a>1、strcpy复制函数</h4><h4 id="2、strlen字符串长度函数"><a href="#2、strlen字符串长度函数" class="headerlink" title="2、strlen字符串长度函数"></a>2、strlen字符串长度函数</h4><h4 id="3、strcat拼接函数"><a href="#3、strcat拼接函数" class="headerlink" title="3、strcat拼接函数"></a>3、strcat拼接函数</h4><h4 id="4、strcmp比较函数"><a href="#4、strcmp比较函数" class="headerlink" title="4、strcmp比较函数"></a>4、strcmp比较函数</h4><h3 id="六、字符串惯用法"><a href="#六、字符串惯用法" class="headerlink" title="六、字符串惯用法"></a>六、字符串惯用法</h3><h4 id="1、搜索字符串末尾"><a href="#1、搜索字符串末尾" class="headerlink" title="1、搜索字符串末尾"></a>1、搜索字符串末尾</h4><h4 id="2、复制字符串"><a href="#2、复制字符串" class="headerlink" title="2、复制字符串"></a>2、复制字符串</h4><h3 id="七、字符串数组"><a href="#七、字符串数组" class="headerlink" title="七、字符串数组"></a>七、字符串数组</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/数组/" rel="next" title="数组">
+                <i class="fa fa-chevron-left"></i> 数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/07/表达式/" rel="prev" title="表达式">
+                表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、字符串字面量"><span class="nav-number">1.</span> <span class="nav-text">一、字符串字面量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、定义"><span class="nav-number">1.1.</span> <span class="nav-text">1、定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、延续字符串字面量"><span class="nav-number">1.2.</span> <span class="nav-text">2、延续字符串字面量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、存储字符串字面量"><span class="nav-number">1.3.</span> <span class="nav-text">3、存储字符串字面量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、字符串变量"><span class="nav-number">2.</span> <span class="nav-text">二、字符串变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、声明字符串变量"><span class="nav-number">2.1.</span> <span class="nav-text">1、声明字符串变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、初始化字符串变量"><span class="nav-number">2.2.</span> <span class="nav-text">2、初始化字符串变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、字符数组和字符指针"><span class="nav-number">2.3.</span> <span class="nav-text">3、字符数组和字符指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、字符串赋值"><span class="nav-number">2.4.</span> <span class="nav-text">4、字符串赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、字符串总结"><span class="nav-number">3.</span> <span class="nav-text">三、字符串总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、字符串字面量"><span class="nav-number">3.1.</span> <span class="nav-text">1、字符串字面量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、字符串变量"><span class="nav-number">3.2.</span> <span class="nav-text">2、字符串变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、字符串形式参数写法"><span class="nav-number">3.3.</span> <span class="nav-text">3、字符串形式参数写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、总结"><span class="nav-number">3.4.</span> <span class="nav-text">4、总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、字符串的读写"><span class="nav-number">4.</span> <span class="nav-text">四、字符串的读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、printf写"><span class="nav-number">4.1.</span> <span class="nav-text">1、printf写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、puts写入"><span class="nav-number">4.2.</span> <span class="nav-text">2、puts写入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、scanf读取"><span class="nav-number">4.3.</span> <span class="nav-text">3、scanf读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、gets读取"><span class="nav-number">4.4.</span> <span class="nav-text">4、gets读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、逐个字符读取字符串"><span class="nav-number">4.5.</span> <span class="nav-text">5、逐个字符读取字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、字符串函数库"><span class="nav-number">5.</span> <span class="nav-text">五、字符串函数库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、strcpy复制函数"><span class="nav-number">5.1.</span> <span class="nav-text">1、strcpy复制函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、strlen字符串长度函数"><span class="nav-number">5.2.</span> <span class="nav-text">2、strlen字符串长度函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、strcat拼接函数"><span class="nav-number">5.3.</span> <span class="nav-text">3、strcat拼接函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、strcmp比较函数"><span class="nav-number">5.4.</span> <span class="nav-text">4、strcmp比较函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、字符串惯用法"><span class="nav-number">6.</span> <span class="nav-text">六、字符串惯用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、搜索字符串末尾"><span class="nav-number">6.1.</span> <span class="nav-text">1、搜索字符串末尾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、复制字符串"><span class="nav-number">6.2.</span> <span class="nav-text">2、复制字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、字符串数组"><span class="nav-number">7.</span> <span class="nav-text">七、字符串数组</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

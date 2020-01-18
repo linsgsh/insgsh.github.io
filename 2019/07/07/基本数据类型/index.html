@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="整数类型一、短整数类型1、短整数类型  short int / short 2、按符号划分(1)有符号和无符号短整数 (2)有符号(默认)：short int / short (3)无符号：unsigned   short int / short (4)unsigned：修饰无符号 (4)有符号：正、0、负 (5)无符号：正、0 3、短整数的读写(1)读取短整数 12345678910111213">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本数据类型">
+<meta property="og:url" content="https://linsgsh.github.io/2019/07/07/基本数据类型/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="整数类型一、短整数类型1、短整数类型  short int / short 2、按符号划分(1)有符号和无符号短整数 (2)有符号(默认)：short int / short (3)无符号：unsigned   short int / short (4)unsigned：修饰无符号 (4)有符号：正、0、负 (5)无符号：正、0 3、短整数的读写(1)读取短整数 12345678910111213">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T13:22:59.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本数据类型">
+<meta name="twitter:description" content="整数类型一、短整数类型1、短整数类型  short int / short 2、按符号划分(1)有符号和无符号短整数 (2)有符号(默认)：short int / short (3)无符号：unsigned   short int / short (4)unsigned：修饰无符号 (4)有符号：正、0、负 (5)无符号：正、0 3、短整数的读写(1)读取短整数 12345678910111213">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://linsgsh.github.io/2019/07/07/基本数据类型/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基本数据类型 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://linsgsh.github.io/2019/07/07/基本数据类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本数据类型
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-07 16:54:55" itemprop="dateCreated datePublished" datetime="2019-07-07T16:54:55+08:00">2019-07-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-08 21:22:59" itemprop="dateModified" datetime="2019-07-08T21:22:59+08:00">2019-07-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C语言/" itemprop="url" rel="index"><span itemprop="name">C语言</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><h3 id="一、短整数类型"><a href="#一、短整数类型" class="headerlink" title="一、短整数类型"></a>一、短整数类型</h3><h4 id="1、短整数类型"><a href="#1、短整数类型" class="headerlink" title="1、短整数类型"></a>1、短整数类型</h4><p>  <strong>short int / short</strong></p>
+<h4 id="2、按符号划分"><a href="#2、按符号划分" class="headerlink" title="2、按符号划分"></a>2、按符号划分</h4><p>(1)有符号和无符号短整数</p>
+<p>(2)有符号(默认)：short int / short</p>
+<p>(3)无符号：unsigned   short int / short</p>
+<p>(4)unsigned：修饰无符号</p>
+<p>(4)有符号：正、0、负</p>
+<p>(5)无符号：正、0</p>
+<h4 id="3、短整数的读写"><a href="#3、短整数的读写" class="headerlink" title="3、短整数的读写"></a>3、短整数的读写</h4><p>(1)读取短整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> s;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%hd"</span>, &amp;s);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%ho"</span>, &amp;s);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%hx"</span>, &amp;s);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%hu"</span>, &amp;s);</span><br></pre></td></tr></table></figure>
+
+<p>(2)写入短整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%hd"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%ho"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%hx"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%hu"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、整数类型"><a href="#二、整数类型" class="headerlink" title="二、整数类型"></a>二、整数类型</h3><h4 id="1、整数类型"><a href="#1、整数类型" class="headerlink" title="1、整数类型"></a>1、整数类型</h4><p>​     <strong>int</strong></p>
+<h4 id="2、按符号划分-1"><a href="#2、按符号划分-1" class="headerlink" title="2、按符号划分"></a>2、按符号划分</h4><p>(1)有符号和无符号整数</p>
+<p>(2)有符号(默认)： int</p>
+<p>(3)无符号：unsigned    int</p>
+<p>(4)unsigned：修饰无符号</p>
+<p>(4)有符号：正、0、负</p>
+<p>(5)无符号：正、0</p>
+<h4 id="3、整数的读写"><a href="#3、整数的读写" class="headerlink" title="3、整数的读写"></a>3、整数的读写</h4><p>(1)读取整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%o"</span>, &amp;n);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%x"</span>, &amp;n);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%u"</span>, &amp;n);</span><br></pre></td></tr></table></figure>
+
+<p>(2)读取整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%o"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%x"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%u"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、长整数类型"><a href="#三、长整数类型" class="headerlink" title="三、长整数类型"></a>三、长整数类型</h3><h4 id="1、长整数类型"><a href="#1、长整数类型" class="headerlink" title="1、长整数类型"></a>1、长整数类型</h4><p>  *<em>long *</em></p>
+<h4 id="2、按符号划分-2"><a href="#2、按符号划分-2" class="headerlink" title="2、按符号划分"></a>2、按符号划分</h4><p>(1)有符号和无符号整数</p>
+<p>(2)有符号(默认)： long int / long</p>
+<p>(3)无符号：unsigned     long int / long</p>
+<p>(4)unsigned：修饰无符号</p>
+<p>(4)有符号：正、0、负</p>
+<p>(5)无符号：正、0</p>
+<h4 id="3、长整数的读写"><a href="#3、长整数的读写" class="headerlink" title="3、长整数的读写"></a>3、长整数的读写</h4><p>(1)读取长整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">int</span> l;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%ld"</span>, &amp;l);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lo"</span>, &amp;l);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lx"</span>, &amp;l);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lu"</span>, &amp;l);</span><br></pre></td></tr></table></figure>
+
+<p>(2)读取长整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%ld"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%lo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%lx"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%lu"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、长长整数类型"><a href="#四、长长整数类型" class="headerlink" title="四、长长整数类型"></a>四、长长整数类型</h3><h4 id="1、长长整数类型"><a href="#1、长长整数类型" class="headerlink" title="1、长长整数类型"></a>1、长长整数类型</h4><p>(1)  *<em>long  long  int *</em></p>
+<p>(2)C99</p>
+<h4 id="2、按符号划分-3"><a href="#2、按符号划分-3" class="headerlink" title="2、按符号划分"></a>2、按符号划分</h4><p>(1)有符号和无符号整数</p>
+<p>(2)有符号(默认)： long  long  int  / long long</p>
+<p>(3)无符号：unsigned     long  long  int  / long long</p>
+<p>(4)unsigned：修饰无符号</p>
+<p>(4)有符号：正、0、负</p>
+<p>(5)无符号：正、0</p>
+<h4 id="3、长长整数的读写"><a href="#3、长长整数的读写" class="headerlink" title="3、长长整数的读写"></a>3、长长整数的读写</h4><p>(1)读取长长整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;i);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%llo"</span>, &amp;i);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%llx"</span>, &amp;i);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%llu"</span>, &amp;i);</span><br></pre></td></tr></table></figure>
+
+<p>(2)读取长长整数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%lld"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号八进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%llo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//有/无符号十六进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%llx"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//无符号十进制读</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%llu"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、整数类型总结"><a href="#五、整数类型总结" class="headerlink" title="五、整数类型总结"></a>五、整数类型总结</h3><h4 id="1、短整数"><a href="#1、短整数" class="headerlink" title="1、短整数"></a>1、短整数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号：hd代表十进制   ho代表八进制   hx代表十六进制</span></span><br><span class="line"><span class="comment">//无符号：hu代表十进制   ho代表八进制   hx代表十六进制</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//八进制：正数、0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//十六进制：正数、0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、整数类型"><a href="#2、整数类型" class="headerlink" title="2、整数类型"></a>2、整数类型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号：d代表十进制   o代表八进制   x代表十六进制</span></span><br><span class="line"><span class="comment">//无符号：u代表十进制   o代表八进制   x代表十六进制</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3、长整数"><a href="#3、长整数" class="headerlink" title="3、长整数"></a>3、长整数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号：ld代表十进制   lo代表八进制   lx代表十六进制</span></span><br><span class="line"><span class="comment">//无符号：lu代表十进制   lo代表八进制   lx代表十六进制</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4、长长整数"><a href="#4、长长整数" class="headerlink" title="4、长长整数"></a>4、长长整数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有符号：ld代表十进制   lo代表八进制   lx代表十六进制</span></span><br><span class="line"><span class="comment">//无符号：lu代表十进制   lo代表八进制   lx代表十六进制</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5、整数常量"><a href="#5、整数常量" class="headerlink" title="5、整数常量"></a>5、整数常量</h4><p>(1)十进制：0~9的数字,不能以0开头</p>
+<p>(2)八进制：0~7的数字，必须以0开头</p>
+<p>(3)十六进制：0<del>9的数字和a</del>f的字母(大/小写)，以0x开头</p>
+<p>(4)二进制：存在计算机的数据是二进制,只是读取、写入时以十、八和十六进制表示</p>
+<p>(5)有符号长整数常量：常量末尾加l/L</p>
+<p>(6)无符号长整数常量：常量末尾加ul(u和l的顺序、大小写可以随意)</p>
+<p>(7)整数常量：默认为int类型的有符号</p>
+<p>(8)无符号整数常量：常量末尾加u/U</p>
+<h4 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//d代表有符号整数类型的十进制        u代表无符号整数类型的十进制 </span></span><br><span class="line"><span class="comment">//o代表有/无符号整数类型的八进制     x代表有/无符号整数类型的十六进制   </span></span><br><span class="line"><span class="comment">//h代表短整数     l代表长整数   ll代表长长整数</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h2><h3 id="一、浮点类型"><a href="#一、浮点类型" class="headerlink" title="一、浮点类型"></a>一、浮点类型</h3><h4 id="1、float"><a href="#1、float" class="headerlink" title="1、float"></a>1、float</h4><p>(1) <strong>单精度</strong></p>
+<p>(2)指数部分：8位</p>
+<p>(3)小数部分：23位</p>
+<h4 id="2、double"><a href="#2、double" class="headerlink" title="2、double"></a>2、double</h4><p>(1)<strong>双精度</strong></p>
+<p>(2)浮点数系统默认为double</p>
+<h4 id="3、long-double"><a href="#3、long-double" class="headerlink" title="3、long double"></a>3、long double</h4><p><strong>扩展精度浮点数</strong></p>
+<h3 id="二、浮点常量"><a href="#二、浮点常量" class="headerlink" title="二、浮点常量"></a>二、浮点常量</h3><h4 id="1、常量"><a href="#1、常量" class="headerlink" title="1、常量"></a>1、常量</h4><p>(1)必须包含小数或者指数(小数 / 指数 / 小数+指数)</p>
+<p>(2)小数部分：至少要有小数点.(小数点.后面可以没有数字)</p>
+<p>(3)指数部分：指数数值前放置e/E，+/-可以放在e/E后面(e的后面可以是正整数、0、负整数)</p>
+<p>(4)整数部分：可有可无</p>
+<h4 id="2、常量表示"><a href="#2、常量表示" class="headerlink" title="2、常量表示"></a>2、常量表示</h4><p>(1)单精度：常量末尾加f或者F</p>
+<p>(2)双精度：浮点数默认表示双精度,不需要在末尾添加任何标识符</p>
+<p>(3)扩展精度：常量末尾加l或者L</p>
+<h3 id="三、读-写浮点数"><a href="#三、读-写浮点数" class="headerlink" title="三、读/写浮点数"></a>三、读/写浮点数</h3><h4 id="1、读取"><a href="#1、读取" class="headerlink" title="1、读取"></a>1、读取</h4><p>(1)单精度float：%e、%f、%g表示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f;</span><br><span class="line"></span><br><span class="line"><span class="comment">//e表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%e"</span>, &amp;f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//f表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%f"</span>, &amp;f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//g表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%g"</span>, &amp;f);</span><br></pre></td></tr></table></figure>
+
+<p>(2)双精度double：%le、%lf、 %lg</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d;</span><br><span class="line"></span><br><span class="line"><span class="comment">//le表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%le"</span>, &amp;f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//lf表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//lg表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lg"</span>, &amp;f);</span><br></pre></td></tr></table></figure>
+
+<p>(3)扩展精度long double：%Le、%Lf、%Lg</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> ld;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Le表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%Le"</span>, &amp;ld);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Lf表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%Lf"</span>, &amp;ld);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Lg表示</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%Lg"</span>, &amp;ld);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、写入"><a href="#2、写入" class="headerlink" title="2、写入"></a>2、写入</h4><p>(1)单精度/双精度：float、double</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f;</span><br><span class="line"></span><br><span class="line"><span class="comment">//e表示float</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%e"</span>, f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//f表示float</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%f"</span>, f);</span><br><span class="line"></span><br><span class="line"><span class="comment">//g表示float</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%g"</span>, f);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> d;</span><br><span class="line"></span><br><span class="line"><span class="comment">//e表示double</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%e"</span>, d);</span><br><span class="line"></span><br><span class="line"><span class="comment">//f表示double</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%f"</span>, d);</span><br><span class="line"></span><br><span class="line"><span class="comment">//g表示double</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%g"</span>, d);</span><br></pre></td></tr></table></figure>
+
+<p>(2)扩展精度long double：%Le、%Lf、%Lg</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> ld;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Le表示</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%Le"</span>, ld);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Lf表示</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%Lf"</span>, ld);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Lg表示</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%Lg"</span>, ld);</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h2><h3 id="一、字符"><a href="#一、字符" class="headerlink" title="一、字符"></a>一、字符</h3><h4 id="1、字符常量"><a href="#1、字符常量" class="headerlink" title="1、字符常量"></a>1、字符常量</h4><p>(1)字符常量用’’括起来</p>
+<p>(2)字符：实质为int类型，而非char类型</p>
+<p>2、存储</p>
+<p>(1)存储、处理：以int类型处理字符</p>
+<p>(2)根据字符集,存储字符对应的整数值</p>
+<p>(3)占用内存：1字节(8位)</p>
+<h4 id="3、字符符号"><a href="#3、字符符号" class="headerlink" title="3、字符符号"></a>3、字符符号</h4><p>(1)有符号字符：-128~127</p>
+<p>(2)无符号字符：0~255</p>
+<h4 id="4、常见字符"><a href="#4、常见字符" class="headerlink" title="4、常见字符"></a>4、常见字符</h4><p>(1)空格字符 ‘ ‘      (2)水平制表：’\t’</p>
+<p>(3)换行：’\n’        (4)反斜杠：’\\‘</p>
+<h4 id="5、空白字符"><a href="#5、空白字符" class="headerlink" title="5、空白字符"></a>5、空白字符</h4><p>(1)空格字符 ‘ ‘      (2)水平制表：’\t’</p>
+<p>(3)换行：’\n’ </p>
+<h4 id="6、空字符"><a href="#6、空字符" class="headerlink" title="6、空字符"></a>6、空字符</h4><p>(1)<strong>‘\0’</strong></p>
+<p>(2)字符8位的值都为0</p>
+<p>(3)用途：字符数组加’\0’中表示字符数组代表字符串</p>
+<h3 id="二、读-写字符"><a href="#二、读-写字符" class="headerlink" title="二、读/写字符"></a>二、读/写字符</h3><h4 id="1、scanf-printf读写"><a href="#1、scanf-printf读写" class="headerlink" title="1、scanf/printf读写"></a>1、scanf/printf读写</h4><p>(1)读取字符前，不会跳过空白字符,每次读取一个字符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次读取</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入：A P</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次写入：c为A</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次读取(读取第一次剩下的,第二次读之前缓冲区： P)</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//不用输入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次写入：c为空格</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第三次读取(读取第二次剩下的,第三次读之前缓冲区：P)</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//不用输入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第三次写入：c为P</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br></pre></td></tr></table></figure>
+
+<p>(2)<strong>跳过空白字符，读取当行剩余的第一个非空白字符</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次读取</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入：A P</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次写入：c为A</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次读取(从第一次读取后缓冲剩下的字符开头开始,跳过空白字符，从非空白字符读取)</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">" %c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二次写入：c为P</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br></pre></td></tr></table></figure>
+
+<p>(3)<strong>跳过当前输入行剩余的字符</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次读取</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入：A P</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次写入：c为A</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%c"</span>, c);</span><br><span class="line">&#125; <span class="keyword">while</span>(c != <span class="string">'\n'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>(4)<strong>总结</strong></p>
+<p> 每次读取一个字符,当一行输入多个字符，想跳过空白字符时使用’ %c’。想读取下一行内容时使用循环</p>
+<p> 当scanf没有清空读取时，下一次使用scanf不会手动输入内容</p>
+<h4 id="2、getchar-putchar读写"><a href="#2、getchar-putchar读写" class="headerlink" title="2、getchar/putchar读写"></a>2、getchar/putchar读写</h4><p>(1)跳过本行剩下的所有字符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ch;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一次输入内容</span></span><br><span class="line">ch = getchar();</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入：C S A P P</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出：C</span></span><br><span class="line"><span class="built_in">putchar</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//跳过剩余字符</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    ch = getchar();</span><br><span class="line">&#125; <span class="keyword">while</span>(ch != <span class="string">'\n'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//简化</span></span><br><span class="line"><span class="keyword">while</span>((ch = getchar) != <span class="string">'\n'</span>) &#123;</span><br><span class="line">    <span class="comment">//空语句</span></span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输入新的一行内容</span></span><br><span class="line">ch = getchar();</span><br><span class="line"></span><br><span class="line"><span class="comment">//手动输入：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出：C</span></span><br><span class="line"><span class="built_in">putchar</span>();</span><br></pre></td></tr></table></figure>
+
+<p>(2)<strong>跳过空格字符，从非空格字符开始读取(其他的空白字符不能跳过!!)</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>((ch = getchar()) != <span class="string">' '</span>) &#123;</span><br><span class="line">    <span class="comment">//空语句</span></span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/C语句/" rel="next" title="C语句">
+                <i class="fa fa-chevron-left"></i> C语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/07/数组/" rel="prev" title="数组">
+                数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整数类型"><span class="nav-number">1.</span> <span class="nav-text">整数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、短整数类型"><span class="nav-number">1.1.</span> <span class="nav-text">一、短整数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、短整数类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、短整数类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、按符号划分"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、按符号划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、短整数的读写"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、短整数的读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、整数类型"><span class="nav-number">1.2.</span> <span class="nav-text">二、整数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、整数类型"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、整数类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、按符号划分-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、按符号划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、整数的读写"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、整数的读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、长整数类型"><span class="nav-number">1.3.</span> <span class="nav-text">三、长整数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、长整数类型"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、长整数类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、按符号划分-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、按符号划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、长整数的读写"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、长整数的读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、长长整数类型"><span class="nav-number">1.4.</span> <span class="nav-text">四、长长整数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、长长整数类型"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、长长整数类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、按符号划分-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、按符号划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、长长整数的读写"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、长长整数的读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、整数类型总结"><span class="nav-number">1.5.</span> <span class="nav-text">五、整数类型总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、短整数"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、短整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、整数类型"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、整数类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、长整数"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、长整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、长长整数"><span class="nav-number">1.5.4.</span> <span class="nav-text">4、长长整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、整数常量"><span class="nav-number">1.5.5.</span> <span class="nav-text">5、整数常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、总结"><span class="nav-number">1.5.6.</span> <span class="nav-text">6、总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浮点类型"><span class="nav-number">2.</span> <span class="nav-text">浮点类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、浮点类型"><span class="nav-number">2.1.</span> <span class="nav-text">一、浮点类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、float"><span class="nav-number">2.1.1.</span> <span class="nav-text">1、float</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、double"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、double</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、long-double"><span class="nav-number">2.1.3.</span> <span class="nav-text">3、long double</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、浮点常量"><span class="nav-number">2.2.</span> <span class="nav-text">二、浮点常量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、常量"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常量表示"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、常量表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、读-写浮点数"><span class="nav-number">2.3.</span> <span class="nav-text">三、读/写浮点数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、读取"><span class="nav-number">2.3.1.</span> <span class="nav-text">1、读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、写入"><span class="nav-number">2.3.2.</span> <span class="nav-text">2、写入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符类型"><span class="nav-number">3.</span> <span class="nav-text">字符类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、字符"><span class="nav-number">3.1.</span> <span class="nav-text">一、字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、字符常量"><span class="nav-number">3.1.1.</span> <span class="nav-text">1、字符常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、字符符号"><span class="nav-number">3.1.2.</span> <span class="nav-text">3、字符符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、常见字符"><span class="nav-number">3.1.3.</span> <span class="nav-text">4、常见字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、空白字符"><span class="nav-number">3.1.4.</span> <span class="nav-text">5、空白字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、空字符"><span class="nav-number">3.1.5.</span> <span class="nav-text">6、空字符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、读-写字符"><span class="nav-number">3.2.</span> <span class="nav-text">二、读/写字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、scanf-printf读写"><span class="nav-number">3.2.1.</span> <span class="nav-text">1、scanf/printf读写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、getchar-putchar读写"><span class="nav-number">3.2.2.</span> <span class="nav-text">2、getchar/putchar读写</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、变量引言1、概念(1)变量有自己的变量名、所属的变量类型、存储在内存的地址值和变量本身的值 (2)变量名： (3)变量类型：整数类型、浮点数类型、字符类型、字符串类型和指针类型 (4)内存地址：不同类型的变量,用于存储值所占用的内存大小不同 (5)变量值：普通变量存的值该变量类型的值,指针变量存的值是内存地址 2、类型：(1)普通变量：整数类型变量、浮点数类型变量、字符类型变量和字符串类型变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="指针">
+<meta property="og:url" content="https://linsgsh.github.io/2019/06/23/指针/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一、变量引言1、概念(1)变量有自己的变量名、所属的变量类型、存储在内存的地址值和变量本身的值 (2)变量名： (3)变量类型：整数类型、浮点数类型、字符类型、字符串类型和指针类型 (4)内存地址：不同类型的变量,用于存储值所占用的内存大小不同 (5)变量值：普通变量存的值该变量类型的值,指针变量存的值是内存地址 2、类型：(1)普通变量：整数类型变量、浮点数类型变量、字符类型变量和字符串类型变量">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T13:23:19.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="指针">
+<meta name="twitter:description" content="一、变量引言1、概念(1)变量有自己的变量名、所属的变量类型、存储在内存的地址值和变量本身的值 (2)变量名： (3)变量类型：整数类型、浮点数类型、字符类型、字符串类型和指针类型 (4)内存地址：不同类型的变量,用于存储值所占用的内存大小不同 (5)变量值：普通变量存的值该变量类型的值,指针变量存的值是内存地址 2、类型：(1)普通变量：整数类型变量、浮点数类型变量、字符类型变量和字符串类型变量">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://linsgsh.github.io/2019/06/23/指针/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>指针 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://linsgsh.github.io/2019/06/23/指针/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">指针
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-23 13:10:30" itemprop="dateCreated datePublished" datetime="2019-06-23T13:10:30+08:00">2019-06-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-08 21:23:19" itemprop="dateModified" datetime="2019-07-08T21:23:19+08:00">2019-07-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C语言/" itemprop="url" rel="index"><span itemprop="name">C语言</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、变量引言"><a href="#一、变量引言" class="headerlink" title="一、变量引言"></a>一、变量引言</h3><h4 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h4><p>(1)变量有自己的变量名、所属的变量类型、存储在内存的地址值和变量本身的值</p>
+<p>(2)变量名：</p>
+<p>(3)变量类型：整数类型、浮点数类型、字符类型、字符串类型和指针类型</p>
+<p>(4)内存地址：不同类型的变量,用于存储值所占用的内存大小不同</p>
+<p>(5)变量值：普通变量存的值该变量类型的值,指针变量存的值是内存地址</p>
+<h4 id="2、类型："><a href="#2、类型：" class="headerlink" title="2、类型："></a>2、类型：</h4><p>(1)普通变量：整数类型变量、浮点数类型变量、字符类型变量和字符串类型变量</p>
+<p>(2)指针变量： 指针类型变量                                                                                                                                                                            </p>
+<h3 id="二、指针变量"><a href="#二、指针变量" class="headerlink" title="二、指针变量"></a>二、指针变量</h3><h4 id="1、概念："><a href="#1、概念：" class="headerlink" title="1、概念："></a>1、概念：</h4><p>(1) 指针本身一个值为内存地址的<strong>变量</strong></p>
+<p>(2)本质是一个变量,用于保存内存地址</p>
+<h4 id="2、类型"><a href="#2、类型" class="headerlink" title="2、类型"></a>2、类型</h4><p>(1)指针类型：指针变量是一个指针类型的变量</p>
+<p>(2)指向的变量类型：指针变量指向的变量的类型</p>
+<h4 id="3、值"><a href="#3、值" class="headerlink" title="3、值"></a>3、值</h4><p>(1)指针的值：存储某个变量的内存地址的值</p>
+<p>(2)指针内存地址值：指针变量本身的内存地址值</p>
+<p>(3)打印：指针值或者指针内存地址值都是用%p格式</p>
+<h4 id="4、声明"><a href="#4、声明" class="headerlink" title="4、声明"></a>4、声明</h4><p>(1)声明、不初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//格式：指针指向的变量类型  指针类型 指针变量名</span></span><br><span class="line"> Type  *p;</span><br></pre></td></tr></table></figure>
+
+<p>(2)声明、初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//格式：指针指向的变量类型 指针类型 指针变量名 = 值; </span></span><br><span class="line">Type  *p = value;</span><br></pre></td></tr></table></figure>
+
+<p>(3)*声明：必须要知道指针所指向的变量的类型</p>
+<p>(4)声明：*代表声明的变量类型是指针类型</p>
+<p>(5)对指针变量初始化或者赋值的值是一个内存地址值,不是一个普通的值</p>
+<h4 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h4><p> 已知一个声明并初始化的指针p</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//格式：指针指向的变量类型 指针类型 指针变量名 = 值; </span></span><br><span class="line">Type  *p = value;</span><br></pre></td></tr></table></figure>
+
+<p>(1)信息一：指针变量p所指向的变量的类型</p>
+<p>(2)信息二：指针变量p所指向的变量的地址</p>
+<p>(3)信息三：指针变量p所指向的变量的值</p>
+<h3 id="三、指针类型"><a href="#三、指针类型" class="headerlink" title="三、指针类型"></a>三、指针类型</h3><h4 id="1、符号表"><a href="#1、符号表" class="headerlink" title="1、符号表"></a>1、符号表</h4><table>
+    <tr>
+        <th>优先级</th>
+        <th>运算符</th>
+        <th>名称/含义</th>
+        <th>使用形式</th>
+        <th>结合方向</th>
+    </tr>
+   <tr>
+           <td>1</td>
+        <td>[]</td>
+        <td>数组下标</td>
+        <td>数组名[整型表达式]</td>
+        <td>左到右</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>()</td>
+        <td>数组下标</td>
+        <td>(表达式）/函数名(形参表)</td>
+        <td>左到右</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>*</td>
+        <td>取值运算符</td>
+        <td>*指针类型表达式</td>
+        <td>左到右</td>
+    </tr>
+</table>
+
+
+<h4 id="2、数组与指针"><a href="#2、数组与指针" class="headerlink" title="2、数组与指针"></a>2、数组与指针</h4><p>(1)数组指针：指向一个数组的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组指针 ,接着是[],表明指向一个数组的指针</span></span><br><span class="line"><span class="keyword">int</span> (*p)[n];</span><br><span class="line"></span><br><span class="line"><span class="comment">//首先()和[]优先级一样,结合性按从左到右,所以p是一个指针</span></span><br><span class="line"><span class="comment">//接着由[]可以知道p是指向一个int类型数组的指针</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)指针数组：存储的元素都是指针的数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指针数组</span></span><br><span class="line"><span class="keyword">int</span> *p[n];</span><br><span class="line"></span><br><span class="line"><span class="comment">//首先[]优先级比*高,p与[]结合,表明是一个数组</span></span><br><span class="line"><span class="comment">//接着是int *,则表明数组元素是指向int类型变量的指针</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3、函数与指针"><a href="#3、函数与指针" class="headerlink" title="3、函数与指针"></a>3、函数与指针</h4><p>(1)函数指针：指向一个函数的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>(2)指针函数：返回一个指针的函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="4、结构体指针："><a href="#4、结构体指针：" class="headerlink" title="4、结构体指针："></a>4、结构体指针：</h4><p> 指向一个结构体的指针</p>
+<h4 id="4、指针级别"><a href="#4、指针级别" class="headerlink" title="4、指针级别"></a>4、指针级别</h4><p>(1)一级指针：指向一个非指针类型的变量的指针</p>
+<p>(2)二级指针：指向一个指针的指针</p>
+<h3 id="四、指针与常量"><a href="#四、指针与常量" class="headerlink" title="四、指针与常量"></a>四、指针与常量</h3><h4 id="1、指针常量"><a href="#1、指针常量" class="headerlink" title="1、指针常量"></a>1、指针常量</h4><p>  指针常量：指针的地址是一个常量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明并初始化一个int类型变量</span></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针的值是一个常量,即指针不能指向其他相同类型变量,只能指向该变量(声明指针时初始化指针的值)</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;n;</span><br><span class="line"></span><br><span class="line"><span class="comment">//虽然指针不能指向其他变量,但是可以修改指向的变量的值</span></span><br><span class="line">*p = <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针常量：指针的值不能改变,但是可以修改指向的内存地址上保存的值</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、常量指针"><a href="#2、常量指针" class="headerlink" title="2、常量指针"></a>2、常量指针</h4><p>(1)常量指针：指针可以访问但是不能修改该指针指向的变量的值,对于指针来说该变量值不可改变</p>
+<p>(2)指针指向的变量：本身可能是常量,可能是变量(取决于该变量是否是const修饰)</p>
+<p>(3)常量指针的const是用于限制指针的行为,而不是限制指向的变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明并初始化一个int类型变量</span></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个指向变量n的指针</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p = &amp;n;   </span><br><span class="line"></span><br><span class="line"><span class="comment">//可以访问指针指向的变量的值</span></span><br><span class="line">pintf(<span class="string">"%d"</span>,*p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//但是不能通过该指针去修改变量的值</span></span><br><span class="line">*p = <span class="number">100</span>; (x)</span><br><span class="line"></span><br><span class="line"><span class="comment">//变量本身值可能可以改变</span></span><br><span class="line">n = <span class="number">100</span>;(可以)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、常量用法"><a href="#3、常量用法" class="headerlink" title="3、常量用法"></a>3、常量用法</h4><p>(1)修饰普通变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类型  const  变量名 = 值 </span></span><br><span class="line">Type <span class="keyword">const</span>  variable = value;</span><br><span class="line"></span><br><span class="line"><span class="comment">//const  类型  变量名 = 值</span></span><br><span class="line"><span class="keyword">const</span> Type  variable = value;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在声明变量的时候必须进行初始化,不能在声明时不初始化,等到赋值的时候再赋于值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明、初始化后,变量值不能改变,即不能通过赋值改变其值</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)指针变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义2个变量m和n</span></span><br><span class="line"><span class="keyword">int</span> m = <span class="number">5</span>, n =<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个常量指针p</span></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span>  p = &amp;m;</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问p指向的变量的的值</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>, *p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改p指向的变量的值</span></span><br><span class="line">*p = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, *p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//但是不能让p指向其他变量</span></span><br><span class="line">p = &amp;n;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h4><p>(1)const  int  *p：指针常量(指向一个常量的指针)</p>
+<p>(2)int  const  *p：指针常量(指向一个常量的指针)</p>
+<p>(3)int*  const  p：常量指针(指针的值是一个常量)</p>
+<p>(4)指针常量：指针的地址是一个常量</p>
+<p>(5)常量指针：指针指向的地址保存的值是常量(对于该指针来说是常量)</p>
+<h3 id="五、指针基本运算"><a href="#五、指针基本运算" class="headerlink" title="五、指针基本运算"></a>五、指针基本运算</h3><h4 id="1、赋值"><a href="#1、赋值" class="headerlink" title="1、赋值="></a>1、赋值=</h4><p>(1)赋值给指针变量的值是一个内存地址值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个指针变量p</span></span><br><span class="line">Type *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针变量名 = 值</span></span><br><span class="line"> p = value;</span><br></pre></td></tr></table></figure>
+
+<p>(2)&amp;间接寻址赋值：通过&amp;间接寻址符获取该变量的内存地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个指针变量和普通变量</span></span><br><span class="line">Type *p, variable = N;</span><br><span class="line"></span><br><span class="line"><span class="comment">//&amp;变量：获取该变量的地址</span></span><br><span class="line">p = &amp;variable;</span><br></pre></td></tr></table></figure>
+
+<p>(3)指针赋值：通过将另一个指针变量赋值方式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明和初始化一个普通变量</span></span><br><span class="line">Type variable = N;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明和初始化一个指针变量p1</span></span><br><span class="line">Type *p1 = &amp;variable;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个指针变量p2</span></span><br><span class="line">Type *p2</span><br><span class="line"></span><br><span class="line"><span class="comment">//把指针变量p1的值赋值给指针变量p2</span></span><br><span class="line">p2 = p1;</span><br></pre></td></tr></table></figure>
+
+<p>(4)数组名赋值：通过数组名赋值(本质上数组名是一个指针变量)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组名赋值给指针变量(不需要&amp;)</span></span><br><span class="line">p = <span class="built_in">array</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组名的地址和数组第一个元素的地址是一样的(数组元素赋值需要&amp;)</span></span><br><span class="line">p = &amp;<span class="built_in">array</span>[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、间接寻址运算符-解引用"><a href="#2、间接寻址运算符-解引用" class="headerlink" title="2、间接寻址运算符/解引用*"></a>2、间接寻址运算符/解引用*</h4><p>(1)间接寻址运算符*：获取指针变量所指向的变量的值</p>
+<p>(2)声明*：声明该变量是一个指针类型变量</p>
+<p>(3)解引用*：获取指针变量所指向的变量的值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明和初始化一个普通变量</span></span><br><span class="line">Type variable = N;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明和初始化一个指针变量p(此时*代表指针变量p是一个指向类型的变量)</span></span><br><span class="line">Type *p = &amp;variable;</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问指针所指向的变量的值(此时*代表解引用,即访问值)</span></span><br><span class="line">*p;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、取地址值符-amp"><a href="#3、取地址值符-amp" class="headerlink" title="3、取地址值符&amp;"></a>3、取地址值符&amp;</h4><p> 取地址值符&amp;：获取普通变量和指针变量的内存地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明一个指针变量p</span></span><br><span class="line">Type *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问指针变量p自身的内存地址</span></span><br><span class="line">&amp;p;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、打印指针"><a href="#4、打印指针" class="headerlink" title="4、打印指针"></a>4、打印指针</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明和初始化一个普通变量</span></span><br><span class="line">Type variable = N;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明和初始化一个指针变量p(此时*代表指针变量p是一个指向类型的变量)</span></span><br><span class="line">Type *p = &amp;variable;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印指针p的内存地址</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, &amp;p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印指针变量p所指向的变量的地址</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印指针变量p所指向的变量的值</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, *p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印指针指向的变量的地址</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>, &amp;variable);</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断指针p是否指向variable</span></span><br><span class="line">p == &amp;variable;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、运算总结"><a href="#5、运算总结" class="headerlink" title="5、运算总结"></a>5、运算总结</h4><p>(1)&amp;p：获取指针变量p本身的内存地址值</p>
+<p>(2)*p：获取指针变量p所指向的变量的值</p>
+<p>(3)p：获取指针变量p所指向的变量的地址值</p>
+<h3 id="六、指针算术运算-处理数组"><a href="#六、指针算术运算-处理数组" class="headerlink" title="六、指针算术运算(处理数组)"></a>六、指针算术运算(处理数组)</h3><h4 id="1、指针递增"><a href="#1、指针递增" class="headerlink" title="1、指针递增++"></a>1、指针递增++</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组名赋值给指针变量(此时p指向数组第一个元素)</span></span><br><span class="line">p = <span class="built_in">array</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试指针p是否指向第一个元素</span></span><br><span class="line">p == &amp;<span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针递增(此时p指向数组第二个元素)</span></span><br><span class="line">p++;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试指针p是否指向第二个元素</span></span><br><span class="line">p == &amp;<span class="built_in">array</span>[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、指针递减–"><a href="#2、指针递减–" class="headerlink" title="2、指针递减–"></a>2、指针递减–</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组第i个元素得到地址赋值给指针变量(此时p指向数组第i个元素)</span></span><br><span class="line">p = &amp;<span class="built_in">array</span>[i];(<span class="number">0</span> &lt; i &lt; N)</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针递减(此时p指向第i个的前一个元素,即第i-1个位置的元素)</span></span><br><span class="line">p--;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试指针p是否指向第i-1个元素</span></span><br><span class="line">p == &amp;<span class="built_in">array</span>[i - <span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、指针加上整数"><a href="#3、指针加上整数" class="headerlink" title="3、指针加上整数"></a>3、指针加上整数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组第i个元素得到地址赋值给指针变量(此时p指向数组第i个元素)</span></span><br><span class="line">p = &amp;<span class="built_in">array</span>[i];(<span class="number">0</span> &lt; i &lt; N)</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针加一个整数(此时指针变量p指向第i+j个元素)</span></span><br><span class="line">p += j;(j &gt; <span class="number">0</span>, i + j &lt; N)</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试指针p是否指向第i+j个元素</span></span><br><span class="line">p == &amp;<span class="built_in">array</span>[i + j];</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、指针减去整数"><a href="#4、指针减去整数" class="headerlink" title="4、指针减去整数"></a>4、指针减去整数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组第i个元素得到地址赋值给指针变量(此时p指向数组第i个元素)</span></span><br><span class="line">p = &amp;<span class="built_in">array</span>[i];(<span class="number">0</span> &lt; i &lt; N)</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针减去一个整数(此时指针变量p指向第i-j个元素)</span></span><br><span class="line">p -= j;(j &gt; <span class="number">0</span>, i - j &gt; <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试指针p是否指向第i+j个元素</span></span><br><span class="line">p == &amp;<span class="built_in">array</span>[i - j];</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、指针相减"><a href="#5、指针相减" class="headerlink" title="5、指针相减"></a>5、指针相减</h4><p> 前提条件：分别指向同一个数组中两个不同位置的两个指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组和指针变量</span></span><br><span class="line">Type <span class="built_in">array</span>[N], *p1, *p2;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组第i个元素得到地址赋值给指针变量(此时p1指向数组第i个元素)</span></span><br><span class="line">p1 = &amp;<span class="built_in">array</span>[i];(<span class="number">0</span> &lt; i &lt; N)</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组第j个元素得到地址赋值给指针变量(此时p2指向数组第j个元素)</span></span><br><span class="line">p2 = &amp;<span class="built_in">array</span>[j];(<span class="number">0</span> &lt; j &lt; N) </span><br><span class="line"></span><br><span class="line"><span class="comment">//两个指针相减的值的绝对值是p1和p2两个指针指向的元素的位置的差值(即 i - j)</span></span><br><span class="line"><span class="keyword">int</span> value = p1 - p2;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断绝对值是否相等</span></span><br><span class="line">|value| == |i - j|;</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、指针与数组"><a href="#七、指针与数组" class="headerlink" title="七、指针与数组"></a>七、指针与数组</h3><h4 id="1、指针方式遍历数组-p"><a href="#1、指针方式遍历数组-p" class="headerlink" title="1、指针方式遍历数组(*p)"></a>1、指针方式遍历数组(*p)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组a(N &gt; 0)和一个指针变量</span></span><br><span class="line"><span class="keyword">int</span> a[N], *p = a;</span><br><span class="line"></span><br><span class="line"><span class="comment">//循环遍历数组的元素</span></span><br><span class="line"><span class="keyword">for</span>(p = &amp;a[<span class="number">0</span>]; p &lt; &amp;a[N]; p++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, *p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、数组名作为指针"><a href="#2、数组名作为指针" class="headerlink" title="2、数组名作为指针"></a>2、数组名作为指针</h4><p>(1) 数组名可作为指向数组第一个元素的的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组a(N &gt; 0),此时a可以当做一个指向数组第一个元素位置的指针</span></span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断数组名地址是否是第一个元素的地址</span></span><br><span class="line">a == &amp;a[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<p>(2)数组名以指针方式(指针算术运算和基本运算)访问/修改数组元素的值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此时a代表指向第i个元素位置的指针(0 &lt; i &lt;N)</span></span><br><span class="line">a + i;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示获取第i个元素位置的内存地址</span></span><br><span class="line">&amp;a[i];</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断是否相同</span></span><br><span class="line">a + i == &amp;a[i];</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问第i个位置的值(指针方式访问)</span></span><br><span class="line">*(a + i);</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改第j个位置的值(指针方式修改)</span></span><br><span class="line">*(a + j) = m;</span><br></pre></td></tr></table></figure>
+
+<p>(3)数组名作为指针遍历数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组a(N &gt; 0)和一个指针变量</span></span><br><span class="line"><span class="keyword">int</span> a[N], *p = a;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用p = a代替p = &amp;a[0],因为数组名可以当做是指向数组第一个元素的指针</span></span><br><span class="line"><span class="keyword">for</span>(p = a; p &lt; a + N ;p++) &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, *p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(4)数组名总结</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p\n"</span>, &amp;a);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p\n"</span>, a);</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组的地址</span></span><br><span class="line">&amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组首元素的地址</span></span><br><span class="line">&amp;a[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组的地址和数组首元素的地址的值相同(含义不同)</span></span><br><span class="line">&amp;a == &amp;a[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、数组方式遍历数组-array-i"><a href="#3、数组方式遍历数组-array-i" class="headerlink" title="3、数组方式遍历数组(array[i])"></a>3、数组方式遍历数组(array[i])</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组a(N &gt; 0)和变量</span></span><br><span class="line"><span class="keyword">int</span> a[N], i;</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历数组</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, a[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、指针作为数组名"><a href="#4、指针作为数组名" class="headerlink" title="4、指针作为数组名"></a>4、指针作为数组名</h4><p> 指针作为数组名,则指针变量可以当做数组名,采用数组方式访问/修改数组元素的值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组a(N &gt; 0)和一个指针变量</span></span><br><span class="line"><span class="keyword">int</span> a[N], i; *p = a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">    <span class="comment">//指针当做数组名,然后按照数组方式访问或修改数组元素的值</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, p[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="八、指针用途"><a href="#八、指针用途" class="headerlink" title="八、指针用途"></a>八、指针用途</h3><h4 id="1、指针作为函数形式参数"><a href="#1、指针作为函数形式参数" class="headerlink" title="1、指针作为函数形式参数"></a>1、指针作为函数形式参数</h4><p>(1)传入普通变量</p>
+<p>a、基本类型变量：函数传入的变量是副本,在函数内修改副本值,对原变量不会有任何影响</p>
+<p>b：结构体变量：函数传入的变量是副本，一来复制结构体变量占用的内存和消耗的时间大;二来如果要修改结构体,不会修改原版结构体</p>
+<p>(2)函数修改参数值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个交换方法1的函数原型,传入的参数是int类型参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap1</span><span class="params">(<span class="keyword">int</span> max, <span class="keyword">int</span> min)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个交换方法2的函数原型,传入的参数是int类型的指针参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap2</span><span class="params">(<span class="keyword">int</span> *max, <span class="keyword">int</span> *min)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">1</span>, min = <span class="number">100</span>;</span><br><span class="line">    swap1(<span class="keyword">int</span> max, <span class="keyword">int</span> min);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"max = %d, min = %d\n"</span>, max, min);</span><br><span class="line">    swap2(<span class="keyword">int</span> *max, <span class="keyword">int</span> *min);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"max = %d, min = %d\n"</span>, max, min);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个交换的函数,传入的参数是int类型参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap1</span><span class="params">(<span class="keyword">int</span> max, <span class="keyword">int</span> min)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(max &lt; min) &#123;</span><br><span class="line">        temp = max;</span><br><span class="line">        max = min;</span><br><span class="line">        min = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个交换的函数,传入的参数是int类型的指针参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap2</span><span class="params">(<span class="keyword">int</span> *max, <span class="keyword">int</span> *min)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *temp;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(max &lt; min) &#123;</span><br><span class="line">        temp = max;</span><br><span class="line">        max = min;</span><br><span class="line">        min = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(3)函数传入数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个打印数组的函数1原型,形参是一个数组</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array1</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个打印数组的函数2原型,形参是一个指针</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array2</span><span class="params">(nt *<span class="built_in">array</span>, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">array</span>[N] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    printf_array1(<span class="built_in">array</span>, N);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    printf_array2(<span class="built_in">array</span>, N);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个打印数组的函数,形参是一个数组(以数组方式打印)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array1</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, <span class="built_in">array</span>[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个打印数组的函数,形参是一个指针(以指针方式打印)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_array2</span><span class="params">(nt *<span class="built_in">array</span>, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *p;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(p = <span class="built_in">array</span>; p &lt; <span class="built_in">array</span> + n; p++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, *p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(4)函数传入结构体</p>
+<h4 id="2、指针作为函数返回值"><a href="#2、指针作为函数返回值" class="headerlink" title="2、指针作为函数返回值"></a>2、指针作为函数返回值</h4><p>(1)返回值是指针类型,必须也要指出函数返回的指针类型是指向什么类型的变量</p>
+<p>(2)*代表返回的类型是指针类型,Type代表返回的指针类型是指向的变量的类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回的指针指向的变量的类型 *函数名(形式参数)   </span></span><br><span class="line"><span class="function">Type  *<span class="title">function_name</span><span class="params">(agrs...)</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+<p>(3)返回的指针类型：不能是指向函数里形式参数、局部变量(包括数组),因为形参和局部变量在调用完函数后会销毁</p>
+<p>(4)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    id <span class="keyword">int</span>;</span><br><span class="line">    name <span class="keyword">char</span>*;</span><br><span class="line">    age <span class="keyword">int</span>;</span><br><span class="line">    address <span class="keyword">char</span>*;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个返回值为[指向Person类型变量的]指针类型的函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> *<span class="title">create_person</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//声明一个int类型的指针p</span></span><br><span class="line">    <span class="keyword">int</span> *person;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//给指针p赋值</span></span><br><span class="line">    person = create_person(<span class="number">1001</span>, <span class="string">"甲"</span>, <span class="number">24</span>, <span class="string">"FZ"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个返回值为[指向Person类型变量的]指针类型的函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> *<span class="title">create_person</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">char</span> *name, <span class="keyword">int</span> age, <span class="keyword">char</span> *address)</span> </span>&#123;</span><br><span class="line">    Person *person = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Person));</span><br><span class="line">    person-&gt;id = id;</span><br><span class="line">    person-&gt;name = name;</span><br><span class="line">    person-&gt;age = age;</span><br><span class="line">    person-&gt;address = address;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/23/C语言/" rel="prev" title="C语言">
+                C语言 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、变量引言"><span class="nav-number">1.</span> <span class="nav-text">一、变量引言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、概念"><span class="nav-number">1.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、类型："><span class="nav-number">1.2.</span> <span class="nav-text">2、类型：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、指针变量"><span class="nav-number">2.</span> <span class="nav-text">二、指针变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、概念："><span class="nav-number">2.1.</span> <span class="nav-text">1、概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、类型"><span class="nav-number">2.2.</span> <span class="nav-text">2、类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、值"><span class="nav-number">2.3.</span> <span class="nav-text">3、值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、声明"><span class="nav-number">2.4.</span> <span class="nav-text">4、声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、总结"><span class="nav-number">2.5.</span> <span class="nav-text">5、总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、指针类型"><span class="nav-number">3.</span> <span class="nav-text">三、指针类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、符号表"><span class="nav-number">3.1.</span> <span class="nav-text">1、符号表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数组与指针"><span class="nav-number">3.2.</span> <span class="nav-text">2、数组与指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、函数与指针"><span class="nav-number">3.3.</span> <span class="nav-text">3、函数与指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、结构体指针："><span class="nav-number">3.4.</span> <span class="nav-text">4、结构体指针：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、指针级别"><span class="nav-number">3.5.</span> <span class="nav-text">4、指针级别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、指针与常量"><span class="nav-number">4.</span> <span class="nav-text">四、指针与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、指针常量"><span class="nav-number">4.1.</span> <span class="nav-text">1、指针常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常量指针"><span class="nav-number">4.2.</span> <span class="nav-text">2、常量指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、常量用法"><span class="nav-number">4.3.</span> <span class="nav-text">3、常量用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、总结"><span class="nav-number">4.4.</span> <span class="nav-text">4、总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、指针基本运算"><span class="nav-number">5.</span> <span class="nav-text">五、指针基本运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、赋值"><span class="nav-number">5.1.</span> <span class="nav-text">1、赋值=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、间接寻址运算符-解引用"><span class="nav-number">5.2.</span> <span class="nav-text">2、间接寻址运算符/解引用*</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、取地址值符-amp"><span class="nav-number">5.3.</span> <span class="nav-text">3、取地址值符&amp;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、打印指针"><span class="nav-number">5.4.</span> <span class="nav-text">4、打印指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、运算总结"><span class="nav-number">5.5.</span> <span class="nav-text">5、运算总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、指针算术运算-处理数组"><span class="nav-number">6.</span> <span class="nav-text">六、指针算术运算(处理数组)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、指针递增"><span class="nav-number">6.1.</span> <span class="nav-text">1、指针递增++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、指针递减–"><span class="nav-number">6.2.</span> <span class="nav-text">2、指针递减–</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、指针加上整数"><span class="nav-number">6.3.</span> <span class="nav-text">3、指针加上整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、指针减去整数"><span class="nav-number">6.4.</span> <span class="nav-text">4、指针减去整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、指针相减"><span class="nav-number">6.5.</span> <span class="nav-text">5、指针相减</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、指针与数组"><span class="nav-number">7.</span> <span class="nav-text">七、指针与数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、指针方式遍历数组-p"><span class="nav-number">7.1.</span> <span class="nav-text">1、指针方式遍历数组(*p)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数组名作为指针"><span class="nav-number">7.2.</span> <span class="nav-text">2、数组名作为指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、数组方式遍历数组-array-i"><span class="nav-number">7.3.</span> <span class="nav-text">3、数组方式遍历数组(array[i])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、指针作为数组名"><span class="nav-number">7.4.</span> <span class="nav-text">4、指针作为数组名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、指针用途"><span class="nav-number">8.</span> <span class="nav-text">八、指针用途</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、指针作为函数形式参数"><span class="nav-number">8.1.</span> <span class="nav-text">1、指针作为函数形式参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、指针作为函数返回值"><span class="nav-number">8.2.</span> <span class="nav-text">2、指针作为函数返回值</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

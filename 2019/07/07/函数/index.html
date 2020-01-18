@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、函数定义1、函数定义(1)函数定义位置：放在源文件 (2)结构 1234返回值类型  函数名(形式参数) &amp;#123;	变量声明;	语句;&amp;#125;  2、返回类型(1)函数不能返回数组类型 (2)返回类型为void表示函数没有返回值 (3)返回类型为void*表示函数返回一个通用指针类型的值,根据实际需要进行强制转换 (4)Type*表示函数返回一个指向Type类型变量的指针 (5)省略返">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数">
+<meta property="og:url" content="https://linsgsh.github.io/2019/07/07/函数/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一、函数定义1、函数定义(1)函数定义位置：放在源文件 (2)结构 1234返回值类型  函数名(形式参数) &amp;#123;	变量声明;	语句;&amp;#125;  2、返回类型(1)函数不能返回数组类型 (2)返回类型为void表示函数没有返回值 (3)返回类型为void*表示函数返回一个通用指针类型的值,根据实际需要进行强制转换 (4)Type*表示函数返回一个指向Type类型变量的指针 (5)省略返">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T13:22:53.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数">
+<meta name="twitter:description" content="一、函数定义1、函数定义(1)函数定义位置：放在源文件 (2)结构 1234返回值类型  函数名(形式参数) &amp;#123;	变量声明;	语句;&amp;#125;  2、返回类型(1)函数不能返回数组类型 (2)返回类型为void表示函数没有返回值 (3)返回类型为void*表示函数返回一个通用指针类型的值,根据实际需要进行强制转换 (4)Type*表示函数返回一个指向Type类型变量的指针 (5)省略返">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://linsgsh.github.io/2019/07/07/函数/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>函数 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://linsgsh.github.io/2019/07/07/函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">函数
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-07 20:00:43" itemprop="dateCreated datePublished" datetime="2019-07-07T20:00:43+08:00">2019-07-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-08 21:22:53" itemprop="dateModified" datetime="2019-07-08T21:22:53+08:00">2019-07-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C语言/" itemprop="url" rel="index"><span itemprop="name">C语言</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、函数定义"><a href="#一、函数定义" class="headerlink" title="一、函数定义"></a>一、函数定义</h4><h4 id="1、函数定义"><a href="#1、函数定义" class="headerlink" title="1、函数定义"></a>1、函数定义</h4><p>(1)函数定义位置：放在源文件</p>
+<p>(2)结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值类型  函数名(形式参数) &#123;</span><br><span class="line">	变量声明;</span><br><span class="line">	语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、返回类型"><a href="#2、返回类型" class="headerlink" title="2、返回类型"></a>2、返回类型</h4><p>(1)函数不能返回数组类型</p>
+<p>(2)返回类型为void表示函数没有返回值</p>
+<p>(3)返回类型为void*表示函数返回一个通用指针类型的值,根据实际需要进行强制转换</p>
+<p>(4)Type*表示函数返回一个指向Type类型变量的指针</p>
+<p>(5)省略返回类型，C89假定返回的类型是int类型，C99则不合法</p>
+<p>(6)返回类型为void的函数的函数体可以为空</p>
+<h4 id="3、函数头"><a href="#3、函数头" class="headerlink" title="3、函数头"></a>3、函数头</h4><p>(1)返回值类型(函数类型)</p>
+<p> <strong>Type、void(无返回值类型)</strong></p>
+<p><strong>Type *</strong>(指向特定类型的指针类型)、void<strong>*(通用类型指针)</strong></p>
+<p>(2)函数名</p>
+<p>  驼峰命名法(单词首字母大写)</p>
+<p> 匈牙利命名法(单词之间以_连接,全部小写)</p>
+<p>(3)函数参数</p>
+<p> 带形式参数(参数个数、参数类型、参数名)</p>
+<p> 不带参数(不填写或者void)</p>
+<h4 id="4、函数变量"><a href="#4、函数变量" class="headerlink" title="4、函数变量"></a>4、函数变量</h4><p>(1)函数内声明的变量专属于该函数</p>
+<p>(2)其他函数不能对定义在该函数的变量修改</p>
+<h4 id="5、形式参数"><a href="#5、形式参数" class="headerlink" title="5、形式参数"></a>5、形式参数</h4><p>(1)非指针变量：传实际参数值的副本</p>
+<p>(2)指针变量：传实际参数的地址/值(数组名)的副本</p>
+<p>(3)典型形参：</p>
+<p>   <strong>数组(传入的是数组名，实际上是一个指向数组首元素首地址的指针)</strong></p>
+<p>   <strong>结构体(传一个指向结构体的指针)</strong></p>
+<p>(4)const</p>
+<p> const修饰形参时表示在函数中只能访问但是不能修改形参的值(非指针形参本身的值或者指针形参指向的变量的值)</p>
+<h4 id="6、函数体"><a href="#6、函数体" class="headerlink" title="6、函数体"></a>6、函数体</h4><p>(1)变量声明、初始化、赋值</p>
+<p>(2)语句</p>
+<p>6、参数值传递</p>
+<p>(1)普通变量(基本数据类型)</p>
+<p>  *<em>形式参数是实际参数值的副本,函数中对形参的修改不会影响实参变化 *</em></p>
+<p>(2)指针变量(数组、结构体)</p>
+<p>  *<em>形式参数是一个地址值,是实际参数地址的副本(非实参值的副本),函数中对形参修改可能会影响实参值变化 *</em></p>
+<h4 id="7、指针类型形参"><a href="#7、指针类型形参" class="headerlink" title="7、指针类型形参"></a>7、指针类型形参</h4><p>(1)用const修饰指针类型的形参时,在函数中指向类型形参仅仅是只读的,不能修改值,否则会报错(const Type * var)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个int类型的数组</span></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">array</span>[N] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取数组元素中的最大值(将数组设置为只读)</span></span><br><span class="line"><span class="keyword">int</span> get_max(<span class="keyword">const</span> <span class="built_in">array</span>, <span class="keyword">int</span> N) &#123;</span><br><span class="line">    <span class="comment">//定义一个最大值变量</span></span><br><span class="line">    <span class="keyword">int</span> max = <span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//遍历数组(指针法遍历)</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(max &lt; *(<span class="built_in">array</span> + i) &#123;</span><br><span class="line">            max = *(<span class="built_in">array</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)在函数体中形参指向该类型的其他变量,从而不再指向原实参,则在函数中修改形参值,不会影响实参值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个结点类型的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    Node *next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个产生结构体的函数原型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">create_node</span><span class="params">(Node *node)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//声明一个Node类型的指针变量,初始化为NULL(代表不指向任何变量)</span></span><br><span class="line">    Node *node = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//调用产生结构体的函数</span></span><br><span class="line">    create_node(node)；</span><br><span class="line">        </span><br><span class="line">    <span class="comment">//用于判断node是否是NULL(间接验证create_node()函数调用是否对node实参有影响)</span></span><br><span class="line">    <span class="keyword">if</span>(node == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"node为NULL"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"node不为NULL"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//产生结构体的函数定义</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">create_node</span><span class="params">(Node *node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//利用do-while循环 + malloc()函数产生一个不是NULL的内存地址</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        node = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    &#125; <span class="keyword">while</span>(node == <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    node-&gt;data = <span class="number">1</span>;</span><br><span class="line">    node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、函数调用"><a href="#二、函数调用" class="headerlink" title="二、函数调用"></a>二、函数调用</h3><h4 id="1、函数调用"><a href="#1、函数调用" class="headerlink" title="1、函数调用"></a>1、函数调用</h4><p>(1)本质：是一个<strong>表达式语句</strong></p>
+<p>(2)结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数名(实参列表);</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、有返回值"><a href="#2、有返回值" class="headerlink" title="2、有返回值"></a>2、有返回值</h4><p>(1)函数调用后会产生一个由函数返回的值</p>
+<p>(2)当做一个右值,可以赋值给左值</p>
+<p>(3)当做另一个函数的实参</p>
+<p>(4)当做一个值,参与表达式运算</p>
+<p>(5)丢弃函数的返回值</p>
+<h4 id="3、无返回值"><a href="#3、无返回值" class="headerlink" title="3、无返回值"></a>3、无返回值</h4><h3 id="三、函数声明"><a href="#三、函数声明" class="headerlink" title="三、函数声明"></a>三、函数声明</h3><h4 id="1、函数声明"><a href="#1、函数声明" class="headerlink" title="1、函数声明"></a>1、函数声明</h4><p>(1)函数声明要和函数定义一致</p>
+<p>(2)函数声明位置：一般放在头文件</p>
+<p>(3)函数声明结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回类型   函数名(形式参数)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、函数原型作用"><a href="#2、函数原型作用" class="headerlink" title="2、函数原型作用"></a>2、函数原型作用</h4><p>(1)为函数调用提供关于函数完整的描述信息</p>
+<p>(2)实际参数的个数、实际参数的类型、返回值类型</p>
+<p>(3)不需要显示形式参数名字</p>
+<h3 id="四、实际参数"><a href="#四、实际参数" class="headerlink" title="四、实际参数"></a>四、实际参数</h3><h4 id="1、形式参数"><a href="#1、形式参数" class="headerlink" title="1、形式参数"></a>1、形式参数</h4><p> 出现在<strong>函数定义</strong>中，以假名字表示函数调用时需要提供的值</p>
+<h4 id="2、实际参数"><a href="#2、实际参数" class="headerlink" title="2、实际参数"></a>2、实际参数</h4><p> 出现在<strong>函数调用</strong>中的表达式</p>
+<h4 id="3、参数传递"><a href="#3、参数传递" class="headerlink" title="3、参数传递"></a>3、参数传递</h4><p>(1)原理：值传递  </p>
+<p>(2)形式参数是实际参数值的副本</p>
+<h4 id="4、实际参数转换"><a href="#4、实际参数转换" class="headerlink" title="4、实际参数转换"></a>4、实际参数转换</h4><p>(1)编译器在函数调用前遇到函数原型</p>
+<p> 每个实际参数的值被隐式转换为相应的形式参数的类型的值</p>
+<p>(2)编译器在函数调用前吗未遇到函数原型</p>
+<p>   编译器按照默认实际参数提升</p>
+<p>   float类型实际参数转换为double类型</p>
+<p>   char、short类型实际参数转换为int类型</p>
+<h3 id="六、数组类型参数"><a href="#六、数组类型参数" class="headerlink" title="六、数组类型参数"></a>六、数组类型参数</h3><h4 id="1、一维数组相关形式参数"><a href="#1、一维数组相关形式参数" class="headerlink" title="1、一维数组相关形式参数"></a>1、一维数组相关形式参数</h4><p>(1)场合：函数声明、函数定义</p>
+<p>(2)相关参数：数组名、数组长度(传入的数组长度实参不能比实际数组长度大)</p>
+<p>(3)形式参数写法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组表示法(表示参数是一个数组类型)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> len)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针表示法(表示实际传入的参数是一个指针)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> len)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组表示法(表示参数是一个数组类型)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> <span class="built_in">array</span>[], <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指针表示法(表示实际传入的参数是一个指针)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_array</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、一维数组实际参数"><a href="#2、一维数组实际参数" class="headerlink" title="2、一维数组实际参数"></a>2、一维数组实际参数</h4><p>(1)场合：函数调用</p>
+<p>(2)相关参数：数组名、数组长度(传入的数组长度实参不能比实际数组长度大)</p>
+<p>(3)调用函数：实际参数中传入的是<strong>数组名和长度</strong>,不是<strong>数组名[]和长度</strong></p>
+<p>(4)实际参数写法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义数组长度</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明数组</span></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">array</span>[N];</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用函数,传入参数</span></span><br><span class="line">sum_array(<span class="built_in">array</span>, N);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、变量数组形式参数-C99"><a href="#3、变量数组形式参数-C99" class="headerlink" title="3、变量数组形式参数(C99)"></a>3、变量数组形式参数(C99)</h4><p>(1)函数定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * int n和int array[n]顺序不能反</span></span><br><span class="line"><span class="comment"> * 第一个n确定第二个参数array的长度</span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">返回类型  函数名(<span class="keyword">int</span> n, <span class="keyword">int</span> <span class="built_in">array</span>[n]) &#123;</span><br><span class="line"> 	声明;</span><br><span class="line">    语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)函数原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">返回类型  函数名(<span class="keyword">int</span> n, <span class="keyword">int</span> <span class="built_in">array</span>[n]);</span><br><span class="line"></span><br><span class="line">返回类型  函数名(<span class="keyword">int</span> n, <span class="keyword">int</span> <span class="built_in">array</span>[*]);</span><br><span class="line"></span><br><span class="line">返回类型  函数名(<span class="keyword">int</span> n, <span class="keyword">int</span> [*]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、main函数"><a href="#七、main函数" class="headerlink" title="七、main函数"></a>七、main函数</h3><h4 id="1、不带命令行参数"><a href="#1、不带命令行参数" class="headerlink" title="1、不带命令行参数"></a>1、不带命令行参数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//返回0表示正常退出</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//正常退出</span></span><br><span class="line">    <span class="comment">//exit(0);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、带命令行参数"><a href="#2、带命令行参数" class="headerlink" title="2、带命令行参数"></a>2、带命令行参数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//程序的命令行参数个数、程序的命令行参数数组</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> args, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//程序的命令行参数个数、程序的命令行参数数组</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> args, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、退出函数"><a href="#3、退出函数" class="headerlink" title="3、退出函数"></a>3、退出函数</h4><p>(1)return 0;</p>
+<p>(2)exit(0);</p>
+<p>(3)return  表达式  =  exit(表达式);</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/表达式/" rel="next" title="表达式">
+                <i class="fa fa-chevron-left"></i> 表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/08/hexo/" rel="prev" title="标签和分类">
+                标签和分类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、函数定义"><span class="nav-number">1.</span> <span class="nav-text">一、函数定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1、函数定义"><span class="nav-number">2.</span> <span class="nav-text">1、函数定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、返回类型"><span class="nav-number">3.</span> <span class="nav-text">2、返回类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、函数头"><span class="nav-number">4.</span> <span class="nav-text">3、函数头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、函数变量"><span class="nav-number">5.</span> <span class="nav-text">4、函数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、形式参数"><span class="nav-number">6.</span> <span class="nav-text">5、形式参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、函数体"><span class="nav-number">7.</span> <span class="nav-text">6、函数体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、指针类型形参"><span class="nav-number">8.</span> <span class="nav-text">7、指针类型形参</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#二、函数调用"><span class="nav-number"></span> <span class="nav-text">二、函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、函数调用"><span class="nav-number">1.</span> <span class="nav-text">1、函数调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、有返回值"><span class="nav-number">2.</span> <span class="nav-text">2、有返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、无返回值"><span class="nav-number">3.</span> <span class="nav-text">3、无返回值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、函数声明"><span class="nav-number"></span> <span class="nav-text">三、函数声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、函数声明"><span class="nav-number">1.</span> <span class="nav-text">1、函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、函数原型作用"><span class="nav-number">2.</span> <span class="nav-text">2、函数原型作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、实际参数"><span class="nav-number"></span> <span class="nav-text">四、实际参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、形式参数"><span class="nav-number">1.</span> <span class="nav-text">1、形式参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、实际参数"><span class="nav-number">2.</span> <span class="nav-text">2、实际参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、参数传递"><span class="nav-number">3.</span> <span class="nav-text">3、参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、实际参数转换"><span class="nav-number">4.</span> <span class="nav-text">4、实际参数转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、数组类型参数"><span class="nav-number"></span> <span class="nav-text">六、数组类型参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、一维数组相关形式参数"><span class="nav-number">1.</span> <span class="nav-text">1、一维数组相关形式参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、一维数组实际参数"><span class="nav-number">2.</span> <span class="nav-text">2、一维数组实际参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、变量数组形式参数-C99"><span class="nav-number">3.</span> <span class="nav-text">3、变量数组形式参数(C99)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、main函数"><span class="nav-number"></span> <span class="nav-text">七、main函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、不带命令行参数"><span class="nav-number">1.</span> <span class="nav-text">1、不带命令行参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、带命令行参数"><span class="nav-number">2.</span> <span class="nav-text">2、带命令行参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、退出函数"><span class="nav-number">3.</span> <span class="nav-text">3、退出函数</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

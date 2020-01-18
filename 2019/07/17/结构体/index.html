@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一、结构体类型1、结构体类型(1)结构体标记法 (2)typedef定义法 2、声明结构体标记(1)结构体声明 123456struct 结构体名 &amp;#123;    成员类型1  成员名1;    成员类型2  成员名2;    ...    成员类型n  成员名n;&amp;#125;;  (2)结构体变量声明 12345678struct 结构体名 &amp;#123;    成员类型1  成员名1;">
+<meta name="keywords" content="C语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结构体">
+<meta property="og:url" content="https://linsgsh.github.io/2019/07/17/结构体/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一、结构体类型1、结构体类型(1)结构体标记法 (2)typedef定义法 2、声明结构体标记(1)结构体声明 123456struct 结构体名 &amp;#123;    成员类型1  成员名1;    成员类型2  成员名2;    ...    成员类型n  成员名n;&amp;#125;;  (2)结构体变量声明 12345678struct 结构体名 &amp;#123;    成员类型1  成员名1;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-17T14:42:29.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结构体">
+<meta name="twitter:description" content="一、结构体类型1、结构体类型(1)结构体标记法 (2)typedef定义法 2、声明结构体标记(1)结构体声明 123456struct 结构体名 &amp;#123;    成员类型1  成员名1;    成员类型2  成员名2;    ...    成员类型n  成员名n;&amp;#125;;  (2)结构体变量声明 12345678struct 结构体名 &amp;#123;    成员类型1  成员名1;">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://linsgsh.github.io/2019/07/17/结构体/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>结构体 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://linsgsh.github.io/2019/07/17/结构体/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">结构体
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-17 22:41:21 / 修改时间：22:42:29" itemprop="dateCreated datePublished" datetime="2019-07-17T22:41:21+08:00">2019-07-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C语言/" itemprop="url" rel="index"><span itemprop="name">C语言</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、结构体类型"><a href="#一、结构体类型" class="headerlink" title="一、结构体类型"></a>一、结构体类型</h3><h4 id="1、结构体类型"><a href="#1、结构体类型" class="headerlink" title="1、结构体类型"></a>1、结构体类型</h4><p>(1)结构体标记法</p>
+<p>(2)typedef定义法</p>
+<h4 id="2、声明结构体标记"><a href="#2、声明结构体标记" class="headerlink" title="2、声明结构体标记"></a>2、声明结构体标记</h4><p>(1)结构体声明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>(2)结构体变量声明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 变量名;</span></span><br></pre></td></tr></table></figure>
+
+<p>(3)结构体标记、声明变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; 变量名<span class="number">1</span>, 变量名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(4)适用场景</p>
+<p>  <strong>链表</strong></p>
+<h4 id="3、定义结构体类型别名"><a href="#3、定义结构体类型别名" class="headerlink" title="3、定义结构体类型别名"></a>3、定义结构体类型别名</h4><p>(1)结构体类型定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; 结构体名;</span><br></pre></td></tr></table></figure>
+
+<p>(2)注意</p>
+<ul>
+<li><p>类型名： <strong>struct后面不跟类型名,类型名在定义的末尾</strong></p>
+</li>
+<li><p>typedef： <strong>给一种数据结构取别名</strong></p>
+</li>
+</ul>
+<h4 id="4、结构体位置"><a href="#4、结构体位置" class="headerlink" title="4、结构体位置"></a>4、结构体位置</h4><p>  <strong>声明结构体标记/定义别名位置在头文件</strong></p>
+<h3 id="二、结构体变量"><a href="#二、结构体变量" class="headerlink" title="二、结构体变量"></a>二、结构体变量</h3><h4 id="1、结构体变量"><a href="#1、结构体变量" class="headerlink" title="1、结构体变量"></a>1、结构体变量</h4><p>(1)变量存储</p>
+<p>​      <strong>结构体的成员在内存中按照声明的顺序存储</strong></p>
+<p>(2)名字空间</p>
+<p>  <strong>结构体代表一种新的作用域</strong>，任何声明在此作用域的名字不会和程序中的其他名字冲突，即每个结构体为它的成员设置独立的名字空间。</p>
+<h4 id="2、结构体变量的声明"><a href="#2、结构体变量的声明" class="headerlink" title="2、结构体变量的声明"></a>2、结构体变量的声明</h4><p>(1)声明匿名的结构体变量</p>
+<p>(2)声明有名称的结构体变量</p>
+<h3 id="三、结构体变量的声明"><a href="#三、结构体变量的声明" class="headerlink" title="三、结构体变量的声明"></a>三、结构体变量的声明</h3><h4 id="1、声明匿名的结构体变量"><a href="#1、声明匿名的结构体变量" class="headerlink" title="1、声明匿名的结构体变量"></a>1、声明匿名的结构体变量</h4><p>(1)声明格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#123;&#125;里填写的成员类型和名称</span></span><br><span class="line"><span class="comment"> * 变量名之间以,隔开,最后一个变量末尾加;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; 变量名<span class="number">1</span>, 变量名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">	<span class="keyword">int</span> number;</span><br><span class="line">    <span class="keyword">char</span> sex;</span><br><span class="line">&#125; employee1, employee2;</span><br></pre></td></tr></table></figure>
+
+<p>(3)特点</p>
+<p> <strong>结构体是匿名的,而结构体变量为全局变量</strong></p>
+<h4 id="2、声明非匿名结构体变量-全局变量"><a href="#2、声明非匿名结构体变量-全局变量" class="headerlink" title="2、声明非匿名结构体变量(全局变量)"></a>2、声明非匿名结构体变量(全局变量)</h4><p>(1)格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; 变量名<span class="number">1</span>, 变量名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125; person1, person2;</span><br></pre></td></tr></table></figure>
+
+<p>(3)特点</p>
+<p>  <strong>结构体是非匿名且结构体变量是全局变量，在声明结构体标记的同时定义全局变量</strong></p>
+<h4 id="3、声明非匿名结构体变量"><a href="#3、声明非匿名结构体变量" class="headerlink" title="3、声明非匿名结构体变量"></a>3、声明非匿名结构体变量</h4><p>(1)格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">//声明结构体类型变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> 结构体名 变量名1, 变量名2;</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明Person结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明Person结构体类型的变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person1</span>, <span class="title">person2</span>;</span></span><br></pre></td></tr></table></figure>
+
+<p>(3)特点</p>
+<p>  <strong>结构体是非匿名,在声明结构体标记时没有同时声明结构体变量</strong></p>
+<p>  <strong>结构体变量是否是全局取决于结构体变量声明位置</strong></p>
+<h4 id="4、声明结构体类型的变量"><a href="#4、声明结构体类型的变量" class="headerlink" title="4、声明结构体类型的变量"></a>4、声明结构体类型的变量</h4><p>(1)格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给结构体类型定义别名</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    成员类型<span class="number">1</span>  成员名<span class="number">1</span>;</span><br><span class="line">    成员类型<span class="number">2</span>  成员名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">    成员类型n  成员名n;</span><br><span class="line">&#125; 结构体名;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义结构体变量</span></span><br><span class="line">结构体名 变量名<span class="number">1</span>, 变量名<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给结构体类型定义别名</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">    <span class="keyword">int</span> price;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125; Book;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义结构体变量</span></span><br><span class="line">Book book1, book2;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、结构变量初始化与赋值"><a href="#四、结构变量初始化与赋值" class="headerlink" title="四、结构变量初始化与赋值"></a>四、结构变量初始化与赋值</h3><h4 id="1、不指定初始化"><a href="#1、不指定初始化" class="headerlink" title="1、不指定初始化"></a>1、不指定初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> address[NAME_LEN];</span><br><span class="line">    <span class="keyword">char</span> telephone[NAME_LEN];</span><br><span class="line">    <span class="keyword">float</span> height;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person</span> = &#123;</span><span class="number">20</span>, <span class="string">"张三"</span>, <span class="number">1001</span>, <span class="string">"福州"</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>(2)初始化顺序</p>
+<ul>
+<li><p><strong>数量</strong>：初始化的成员数量可少于所初始化的结构体定义的成员数量</p>
+</li>
+<li><p><strong>顺序</strong>： 初始化式值的顺序需要和结构体定义的成员顺序一致</p>
+</li>
+</ul>
+<p>(3)初始化条件</p>
+<p>   <strong>用于结构初始化的表达式必须是常量</strong></p>
+<h4 id="2、结构变量指定初始化"><a href="#2、结构变量指定初始化" class="headerlink" title="2、结构变量指定初始化"></a>2、结构变量指定初始化</h4><p>(1)指示符</p>
+<p> <strong>点号.和成员名称的组合成为指示符</strong></p>
+<p>(2)指定初始化</p>
+<p>  初始化式值的顺序不需要和结构定义的成员顺序一致</p>
+<p>(3)指定初始化方式</p>
+<p>   <strong>结构体变量 =  {.成员名1 = 值1,  .成员名2 = 值2,  .成员名3 = 值3,  … ,  .成员名n = 值n };</strong></p>
+<p>(4)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> name[NAME_LEN];</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> address[NAME_LEN];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明并初始化结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person</span> = &#123;</span>.age = <span class="number">21</span>, .id = <span class="number">1001</span>, .address = <span class="string">"BJ"</span>, .name = <span class="string">"张三"</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、结构体成员初始化"><a href="#3、结构体成员初始化" class="headerlink" title="3、结构体成员初始化"></a>3、结构体成员初始化</h4><p>(1)显示初始化</p>
+<p>   <strong>按照给定的初始化的值进行初始化</strong></p>
+<p>(2)隐式初始化(至少有一个成员显示初始化)</p>
+<ul>
+<li>整数型：默认值是0</li>
+<li>浮点型：默认值是0.000</li>
+<li>字符型：’\0’(空字符)</li>
+<li>字符串型：”\0”(空字符串)</li>
+<li>总结：未初始化的成员默认值为0</li>
+</ul>
+<p>(3)隐式初始化(所有成员都未显示初始化)</p>
+<ul>
+<li>编译器为所有成员进行默认初始化,默认初始化值未知</li>
+</ul>
+<h4 id="4、结构体变量赋值"><a href="#4、结构体变量赋值" class="headerlink" title="4、结构体变量赋值"></a>4、结构体变量赋值</h4><p>(1)结构体成员赋值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//成员赋值</span></span><br><span class="line">person.age = <span class="number">20</span>;</span><br><span class="line">person.address = <span class="string">"SZ"</span>;</span><br><span class="line">person.name = <span class="string">"李四"</span>;</span><br><span class="line">person.id = <span class="number">1001</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)结构赋值(整体赋值)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明结构体标记</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Book</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> price;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//声明结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person</span>, <span class="title">person2</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//成员赋值</span></span><br><span class="line">person.age = <span class="number">20</span>;</span><br><span class="line">person.address = <span class="string">"SZ"</span>;</span><br><span class="line">person.name = <span class="string">"李四"</span>;</span><br><span class="line">person.id = <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体的成员会被逐一赋值</span></span><br><span class="line">person2 = person;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Book</span> <span class="title">book</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//无法赋值,因为结构体类型不兼容</span></span><br><span class="line">book = person;</span><br></pre></td></tr></table></figure>
+
+<p>(3)结构体与数组赋值区别</p>
+<ul>
+<li><p>结构体：结构体变量可作为左值,由另一个类型兼容的结构体变量赋值</p>
+</li>
+<li><p>数组：数组名不能作为左值,不能由另一个相同类型数组的数组名进行赋值</p>
+</li>
+<li><p>结构体整体赋值：成员逐一进行赋值</p>
+</li>
+<li><p>结构体整体赋值局限：只针对类型兼容的结构体赋值</p>
+</li>
+</ul>
+<h3 id="五、修改-访问结构体变量成员"><a href="#五、修改-访问结构体变量成员" class="headerlink" title="五、修改/访问结构体变量成员"></a>五、修改/访问结构体变量成员</h3><h4 id="1、结构体成员"><a href="#1、结构体成员" class="headerlink" title="1、结构体成员"></a>1、结构体成员</h4><p>(1)结构体成员</p>
+<p>  <strong>结构体成员是左值，即可作为赋值运算左侧，又可以作为自增或自减表达式的操作数</strong></p>
+<p>(2)访问结构成员原理</p>
+<p>   <strong>通过成员名字而非成员位置访问</strong></p>
+<h4 id="2、点运算符-访问法"><a href="#2、点运算符-访问法" class="headerlink" title="2、点运算符.访问法"></a>2、点运算符.访问法</h4><p>(1).访问法：<strong>结构体变量.成员变量名</strong></p>
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明并初始化一个结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> telephone;</span><br><span class="line">&#125; person = &#123;<span class="string">"C"</span>, <span class="number">48</span>, <span class="number">10010</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//访问</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"姓名: %s"</span>, person.name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n年龄: %d"</span>, person.age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n电话号码: %d"</span>, person.telephone);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、指针变量访问法"><a href="#3、指针变量访问法" class="headerlink" title="3、指针变量访问法"></a>3、指针变量访问法</h4><p>(1)指针直接访问法(-&gt;)：指针变量 -&gt; 成员变量名</p>
+<p>例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> telephone;</span><br><span class="line">&#125; Person;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个结构体变量</span></span><br><span class="line">Person p;</span><br><span class="line">p.name = <span class="string">"C"</span>;</span><br><span class="line">p.age = <span class="number">48</span>;</span><br><span class="line">p.telephone = <span class="number">10010</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"姓名: %s"</span>, p.name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n年龄: %d"</span>, p.age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n电话号码: %d"</span>, p.telephone);</span><br><span class="line"></span><br><span class="line">Person *p1 = &amp;p;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"姓名: %s"</span>, p1 -&gt; name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n年龄: %d"</span>, p1 -&gt; age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n电话号码: %d"</span>, p1 -&gt; telephone);</span><br></pre></td></tr></table></figure>
+
+<p> (2)指针间接访问法</p>
+<ul>
+<li>指针间接访问法：(*指针变量).成员变量名</li>
+<li>第一步：(*指针变量)：表示为结构体指针指向的结构体变量</li>
+<li>第二步：结构体变量访问成员： .成员变量名</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> telephone;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">p</span>;</span></span><br><span class="line">p.name = <span class="string">"C"</span>;</span><br><span class="line">p.age = <span class="number">48</span>;</span><br><span class="line">p.telephone = <span class="number">10010</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"姓名: %s"</span>, p.name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n年龄: %d"</span>, p.age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n电话号码: %d"</span>, p.telephone);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> *<span class="title">p1</span> = &amp;<span class="title">p</span>;</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"姓名: %s"</span>, (*p1).name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n年龄: %d"</span>, (*p1).age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n电话号码: %d"</span>, (*p1).elephone);</span><br></pre></td></tr></table></figure>
+
+<h3 id="六、结构体用途"><a href="#六、结构体用途" class="headerlink" title="六、结构体用途"></a>六、结构体用途</h3><h4 id="1、结构体形参"><a href="#1、结构体形参" class="headerlink" title="1、结构体形参"></a>1、结构体形参</h4><p>(1)结构体变量作为形参</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体传入函数中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_person</span><span class="params">(struct Person person)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, person.age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, person.name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, person.id);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, person.address);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)结构体指针变量作为形参</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体传入函数中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_person</span><span class="params">(struct Person *person)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, person-&gt;age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, person-&gt;name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, person-&gt;id);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, person-&gt;address);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(3)总结</p>
+<ul>
+<li><p>传入结构体：需要复制一份结构体,即生成结构体变量所有成员的副本,增加开销</p>
+</li>
+<li><p>传入结构体指针：只需要传入一个指向结构体变量的指针的副本,开销大大减小</p>
+</li>
+</ul>
+<h4 id="2、结构体返回值"><a href="#2、结构体返回值" class="headerlink" title="2、结构体返回值"></a>2、结构体返回值</h4><p>(1)返回结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="function">struct Person <span class="title">get_person</span><span class="params">(<span class="keyword">int</span> age, <span class="keyword">char</span> *name, <span class="keyword">int</span> id, <span class="keyword">char</span> *address)</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">p</span>;</span></span><br><span class="line">    p.age = age;</span><br><span class="line">    p.name = name;</span><br><span class="line">    p.id = id;</span><br><span class="line">    p.address = address;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>(2)返回结构体指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="function">struct Person *<span class="title">get_person</span><span class="params">(<span class="keyword">int</span> age, <span class="keyword">char</span> *name, <span class="keyword">int</span> id, <span class="keyword">char</span> *address)</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Person</span> *<span class="title">p</span> = <span class="title">malloc</span>(<span class="title">sizeof</span>(<span class="title">struct</span> <span class="title">Person</span>));</span></span><br><span class="line">    p-&gt;age = age;</span><br><span class="line">    p-&gt;name = name;</span><br><span class="line">    p-&gt;id = id;</span><br><span class="line">    p-&gt;address = address;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>(3)总结</p>
+<ul>
+<li><p>返回结构体：需要复制一份结构体,即生成结构体变量所有成员的副本,增加开销</p>
+</li>
+<li><p>返回结构体指针：只需要返回一个指向结构体变量的指针的副本,开销大大减小</p>
+</li>
+</ul>
+<h4 id="3、复合字面量-C99"><a href="#3、复合字面量-C99" class="headerlink" title="3、复合字面量(C99)"></a>3、复合字面量(C99)</h4><p>(1)结构</p>
+<ul>
+<li><p>*<em>(结构体类型名) {值1,  值2,  值3,  ..,  值n} *</em></p>
+</li>
+<li><p>圆括号的类型名和一组后续花括号的一组值</p>
+</li>
+</ul>
+<p>(2)复合字面量</p>
+<ul>
+<li><p>实时创建一个结构体,而不需要存在结构体变量中</p>
+</li>
+<li><p>复合字面量创建类似含显示初始化式的声明,初始化式只能出现在声明中,不能出现在赋语句中</p>
+</li>
+<li><p>复合字面量不会提供完全的初始化,任何未初始化的成员默认值为0</p>
+</li>
+</ul>
+<p>(3)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printf_person((struct Person) &#123;<span class="number">20</span>, <span class="string">"赵柳"</span>, <span class="number">1004</span>, <span class="string">"SZ"</span>&#125;);</span><br><span class="line"></span><br><span class="line">printf_person((struct Person) &#123;.id = <span class="number">1004</span>,  .age = <span class="number">20</span>, .address = <span class="string">"SZ"</span>, .name=<span class="string">"赵柳"</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体传入函数中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printf_person</span><span class="params">(struct Person person)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, person.age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, person.name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, person.id);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, person.address);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、结构体高级应用"><a href="#七、结构体高级应用" class="headerlink" title="七、结构体高级应用"></a>七、结构体高级应用</h3><h4 id="1、结构体与指针"><a href="#1、结构体与指针" class="headerlink" title="1、结构体与指针"></a>1、结构体与指针</h4><p>(1)指向结构体变量的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">p</span>, *<span class="title">ptr</span>;</span></span><br><span class="line">p.name = <span class="string">"C"</span>;</span><br><span class="line">p.age = <span class="number">48</span>;</span><br><span class="line">p.telephone = <span class="number">10010</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体指针ptr指向结构体变量p</span></span><br><span class="line">ptr = &amp;p;</span><br></pre></td></tr></table></figure>
+
+<p>(2)结构体类型指针访问成员</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> *address;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个结构体变量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">p</span>, *<span class="title">ptr</span>;</span></span><br><span class="line">p.name = <span class="string">"C"</span>;</span><br><span class="line">p.age = <span class="number">48</span>;</span><br><span class="line">p.telephone = <span class="number">10010</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体变量访问成员</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, p.age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, p.name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, ptr.id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, ptr.address);</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体指针ptr指向结构体变量p</span></span><br><span class="line">ptr = &amp;p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体指针访问成员方式一 -&gt;</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, ptr-&gt;age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, ptr-&gt;name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, ptr-&gt;id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, ptr-&gt;address);</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构体指针访问成员方式二 (*).</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, (*ptr).age);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, (*ptr).name);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"身份证: %d\n"</span>, (*ptr).id);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"地址: %s\n"</span>, (*ptr).address);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、嵌套结构体"><a href="#2、嵌套结构体" class="headerlink" title="2、嵌套结构体"></a>2、嵌套结构体</h4><p>(1)嵌套结构体</p>
+<ul>
+<li><strong>一种类型结构体中嵌套另一种类型的结构体</strong></li>
+<li>A类型结构体中嵌套B类型结构体,则B类型结构体定义顺序要先于A,否则报错</li>
+</ul>
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//地址</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Address</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> *province;</span><br><span class="line">    <span class="keyword">char</span> *city;</span><br><span class="line">    <span class="keyword">char</span> *area;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//人</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Address</span> <span class="title">address</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">Address</span> <span class="title">address</span> = &#123;</span><span class="string">"广东省"</span>, <span class="string">"广州市"</span>, <span class="string">"天河区"</span>&#125;;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Person</span> <span class="title">person</span>;</span></span><br><span class="line">    person.age = <span class="number">27</span>;</span><br><span class="line">    person.name = <span class="string">"王五"</span>;</span><br><span class="line">    person.address = address;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"年龄: %d\n"</span>, person.age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"名字: %s\n"</span>, person.name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"地址: %s%s%s"</span>, person.address.province, person.address.city, person.address.area);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、结构数组"><a href="#3、结构数组" class="headerlink" title="3、结构数组"></a>3、结构数组</h4><p>(1)结构体数组</p>
+<p>   <strong>元素都是结构体的数组</strong></p>
+<p>(2)访问成员</p>
+<ul>
+<li>结合.和[]使用</li>
+<li>[]获取每一个结构体数组的元素</li>
+<li>.获取每一个数组的元素的所有成员</li>
+</ul>
+<p>(2)例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LEN 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//地址</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Address</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> *province;</span><br><span class="line">    <span class="keyword">char</span> *city;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Address</span> <span class="title">citys</span>[<span class="title">LEN</span>];</span></span><br><span class="line"></span><br><span class="line">citys[<span class="number">0</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">0</span>].city = <span class="string">"福州"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">1</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">1</span>].city = <span class="string">"厦门"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">2</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">2</span>].city = <span class="string">"泉州"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">3</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">3</span>].city = <span class="string">"漳州"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">4</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">4</span>].city = <span class="string">"莆田"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">5</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">5</span>].city = <span class="string">"龙岩"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">6</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">6</span>].city = <span class="string">"南平"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">7</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">7</span>].city = <span class="string">"三明"</span>;</span><br><span class="line"></span><br><span class="line">citys[<span class="number">8</span>].province = <span class="string">"福建"</span>;</span><br><span class="line">citys[<span class="number">8</span>].city = <span class="string">"宁德"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LEN; i++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"省: %s "</span>, citys[i].province);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"市: %s\n"</span>, citys[i].city);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/14/linux文件操作/" rel="next" title="linux文件操作">
+                <i class="fa fa-chevron-left"></i> linux文件操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/21/预处理器/" rel="prev" title="预处理器">
+                预处理器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、结构体类型"><span class="nav-number">1.</span> <span class="nav-text">一、结构体类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、结构体类型"><span class="nav-number">1.1.</span> <span class="nav-text">1、结构体类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、声明结构体标记"><span class="nav-number">1.2.</span> <span class="nav-text">2、声明结构体标记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、定义结构体类型别名"><span class="nav-number">1.3.</span> <span class="nav-text">3、定义结构体类型别名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、结构体位置"><span class="nav-number">1.4.</span> <span class="nav-text">4、结构体位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、结构体变量"><span class="nav-number">2.</span> <span class="nav-text">二、结构体变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、结构体变量"><span class="nav-number">2.1.</span> <span class="nav-text">1、结构体变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、结构体变量的声明"><span class="nav-number">2.2.</span> <span class="nav-text">2、结构体变量的声明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、结构体变量的声明"><span class="nav-number">3.</span> <span class="nav-text">三、结构体变量的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、声明匿名的结构体变量"><span class="nav-number">3.1.</span> <span class="nav-text">1、声明匿名的结构体变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、声明非匿名结构体变量-全局变量"><span class="nav-number">3.2.</span> <span class="nav-text">2、声明非匿名结构体变量(全局变量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、声明非匿名结构体变量"><span class="nav-number">3.3.</span> <span class="nav-text">3、声明非匿名结构体变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、声明结构体类型的变量"><span class="nav-number">3.4.</span> <span class="nav-text">4、声明结构体类型的变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、结构变量初始化与赋值"><span class="nav-number">4.</span> <span class="nav-text">四、结构变量初始化与赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、不指定初始化"><span class="nav-number">4.1.</span> <span class="nav-text">1、不指定初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、结构变量指定初始化"><span class="nav-number">4.2.</span> <span class="nav-text">2、结构变量指定初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、结构体成员初始化"><span class="nav-number">4.3.</span> <span class="nav-text">3、结构体成员初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、结构体变量赋值"><span class="nav-number">4.4.</span> <span class="nav-text">4、结构体变量赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、修改-访问结构体变量成员"><span class="nav-number">5.</span> <span class="nav-text">五、修改/访问结构体变量成员</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、结构体成员"><span class="nav-number">5.1.</span> <span class="nav-text">1、结构体成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、点运算符-访问法"><span class="nav-number">5.2.</span> <span class="nav-text">2、点运算符.访问法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、指针变量访问法"><span class="nav-number">5.3.</span> <span class="nav-text">3、指针变量访问法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、结构体用途"><span class="nav-number">6.</span> <span class="nav-text">六、结构体用途</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、结构体形参"><span class="nav-number">6.1.</span> <span class="nav-text">1、结构体形参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、结构体返回值"><span class="nav-number">6.2.</span> <span class="nav-text">2、结构体返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、复合字面量-C99"><span class="nav-number">6.3.</span> <span class="nav-text">3、复合字面量(C99)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、结构体高级应用"><span class="nav-number">7.</span> <span class="nav-text">七、结构体高级应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、结构体与指针"><span class="nav-number">7.1.</span> <span class="nav-text">1、结构体与指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、嵌套结构体"><span class="nav-number">7.2.</span> <span class="nav-text">2、嵌套结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、结构数组"><span class="nav-number">7.3.</span> <span class="nav-text">3、结构数组</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
